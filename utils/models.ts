@@ -10,7 +10,7 @@ const courses = new mongoose.Schema({
   members: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "courses",
+      ref: "user",
     },
   ],
 });
@@ -23,7 +23,7 @@ export const users = new mongoose.Schema({
   courses: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "user",
+      ref: "courses",
     },
   ],
 });
