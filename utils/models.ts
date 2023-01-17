@@ -1,5 +1,21 @@
 import mongoose from "mongoose";
+// import { connectToDB  } from "./database";
 
+const { NUXT_MONGO_URL } = process.env;
+
+if (typeof NUXT_MONGO_URL === "undefined") {
+  throw new Error("NUXT_MONGO_URL is not defined in the .env file");
+}
+mongoose.connect(
+  NUXT_MONGO_URL,
+  {
+    dbName: "lms",
+  },
+  () => {
+    console.log("connected to database");
+  }
+);
+// connectToDB();
 const courses = new mongoose.Schema({
   name: String,
   assignments: [],
@@ -19,6 +35,8 @@ export const Courses = mongoose.model("courses", courses);
 
 export const users = new mongoose.Schema({
   firstName: String,
+  passwordHash: String,
+  userAuthToken: String,
   lastName: String,
   courses: [
     {
