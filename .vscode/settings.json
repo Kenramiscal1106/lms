@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "pages",
     "config",
-    "utilities"
+    "utilities",
+    "api"
   ]
 }
