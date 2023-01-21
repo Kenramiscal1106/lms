@@ -19,16 +19,15 @@ const handleSubmit = (async (e) => {
     body: JSON.stringify({ firstname, lastname, password })
   });
   const postRes = await postReq.json()
-  console.log(postRes.success)
   if (postRes.success) {
-    console.log("successfully registered")
     navigateTo({
       path: "/login"
     })
   }
-  console.log({ firstname, lastname, password, postRes })
 }) satisfies EventListener
-
+useHead({
+  title: "Register | LMS"
+})
 </script>
 
 <template>
