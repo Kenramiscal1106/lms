@@ -38,6 +38,7 @@ export const users = new mongoose.Schema({
   passwordHash: String,
   userAuthToken: String,
   lastName: String,
+  username: String,
   courses: [
     {
       type: mongoose.SchemaTypes.ObjectId,
