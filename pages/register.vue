@@ -1,22 +1,47 @@
 <script setup lang="ts">
+import { z } from "zod"
 
 const passwordRef = ref("")
 const confirmPasswordRef = ref("")
-const passwordMatch = ref<null | boolean>(null)
+const formResult = ref<{
+  success: boolean,
+  type: "password error" | "empty field"
+  message: string
+} | null>(null)
 const handleSubmit = (async (e) => {
   const formData = new FormData(e.currentTarget as HTMLFormElement)
+  const formSchema = z.object({
+    firstname: z.string().min(1),
+    lastname: z.string().min(1),
+    password: z.string().min(8),
+    username: z.string().min(4)
+  })
   const firstname = formData.get("firstname")
   const lastname = formData.get("lastname")
   const password = formData.get('password')
+  const username = formData.get("username")
 
   if (passwordRef.value !== confirmPasswordRef.value) {
-    passwordMatch.value = false
+    formResult.value = {
+      success: false,
+      type: "password error",
+      message: "Password doesn't match"
+    }
     return
   }
-  passwordMatch.value = true
+  const parsedData = formSchema.safeParse({ firstname, lastname, password, username })
+  if (!parsedData.success) {
+    formResult.value = {
+      success: false,
+      type: "empty field",
+      message: "validation error"
+    }
+    return
+  }
+
   const postReq = await fetch("/api/register", {
     method: "POST",
-    body: JSON.stringify({ firstname, lastname, password })
+    body: JSON.stringify({ firstname, lastname, password, username })
   });
   const postRes = await postReq.json()
   if (postRes.success) {
@@ -26,7 +51,7 @@ const handleSubmit = (async (e) => {
   }
 }) satisfies EventListener
 useHead({
-  title: "Register | LMS"
+  title: "Register | LMS",
 })
 </script>
 
@@ -37,12 +62,15 @@ useHead({
     <input type="text" name="firstname" id="firstname"> <br>
     <label for="lastname">Last name</label>
     <input type="text" name="lastname" id="lastname"> <br>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+    <br>
     <label for="password">Password</label>
     <input type="password" name="password" id="password" v-model="passwordRef"><br>
     <label for="confirm-password">Confirm Password</label>
     <input type="password" name="password" id="confirm-password" v-model="confirmPasswordRef" /><br>
-    <div v-if="typeof passwordMatch === 'boolean' && !passwordMatch">
-      Password doesn't match
+    <div v-if="formResult !== null && !formResult.success">
+      {{ formResult.message }}
     </div>
     <button type="submit">Submit</button>
   </form>
