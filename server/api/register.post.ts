@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Users } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
-  const { firstname, lastname, password } = await readBody(event);
+  const { firstname, lastname, password, username } = await readBody(event);
 
   const user = await Users.findOne({
     firstName: firstname,
@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
     await Users.create({
       firstName: firstname,
       lastName: lastname,
+      username: username,
       passwordHash: await bcrypt.hash(password, 10),
       userAuthToken: uuidv4(),
     });
