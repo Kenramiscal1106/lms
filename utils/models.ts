@@ -31,7 +31,8 @@ const courses = new mongoose.Schema({
   ],
 });
 
-export const Courses = mongoose.model("courses", courses);
+export const Courses =
+  mongoose.models.courses || mongoose.model("courses", courses);
 
 export const users = new mongoose.Schema({
   firstName: String,
@@ -46,4 +47,4 @@ export const users = new mongoose.Schema({
     },
   ],
 });
-export const Users = mongoose.model("user", users);
+export const Users = mongoose.models.user || mongoose.model("user", users);
