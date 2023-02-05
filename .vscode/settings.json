@@ -3,6 +3,7 @@
     "pages",
     "config",
     "utilities",
-    "api"
+    "api",
+    "middleware"
   ]
 }
