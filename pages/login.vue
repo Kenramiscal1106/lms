@@ -1,13 +1,13 @@
 <script setup lang="ts">
-// import z from "zod"
-// definePageMeta({
-//   middleware: "auth"
-// })
-// const formResult = ref<{
-//   success: boolean,
-//   type: "incorrect" | "validation",
-//   message: string
-// } | null>(null)
+import z from "zod"
+definePageMeta({
+  middleware: "auth"
+})
+const formResult = ref<{
+  success: boolean,
+  type: "incorrect" | "validation",
+  message: string
+} | null>(null)
 
 const handleSubmit = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
@@ -67,6 +67,8 @@ useHead({
     <input type="text" name="username" id="username"> <br>
     <label for="password">Password</label><br>
     <input type="password" name="password" id="password"> <br>
+    <p>No Account yet? <NuxtLink to="/register">Register</NuxtLink>
+    </p>
     <button type="submit">Submit</button>
     <div v-if="formResult !== null && !formResult.success">
       {{ formResult.message }}</div>

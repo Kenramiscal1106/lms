@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { z } from "zod"
-
+definePageMeta({
+  middleware: "auth"
+})
 const passwordRef = ref("")
 const confirmPasswordRef = ref("")
 const formResult = ref<{
@@ -58,16 +60,16 @@ useHead({
 <template>
   <form @submit.prevent="handleSubmit">
     <h1>Register to LMS</h1>
-    <label for="firstname">First name</label>
+    <label for="firstname">First name</label><br>
     <input type="text" name="firstname" id="firstname"> <br>
-    <label for="lastname">Last name</label>
+    <label for="lastname">Last name</label><br>
     <input type="text" name="lastname" id="lastname"> <br>
-    <label for="username">Username</label>
+    <label for="username">Username</label><br>
     <input type="text" name="username" id="username">
     <br>
-    <label for="password">Password</label>
+    <label for="password">Password</label><br>
     <input type="password" name="password" id="password" v-model="passwordRef"><br>
-    <label for="confirm-password">Confirm Password</label>
+    <label for="confirm-password">Confirm Password</label><br>
     <input type="password" name="password" id="confirm-password" v-model="confirmPasswordRef" /><br>
     <div v-if="formResult !== null && !formResult.success">
       {{ formResult.message }}
@@ -79,6 +81,6 @@ useHead({
 <style scoped>
 input {
   border: 1px solid black;
-  padding: .5rem;
+  padding: .25rem .5rem;
 }
 </style>
