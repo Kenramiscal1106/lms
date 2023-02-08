@@ -71,6 +71,8 @@ useHead({
     <input type="password" name="password" id="password" v-model="passwordRef"><br>
     <label for="confirm-password">Confirm Password</label><br>
     <input type="password" name="password" id="confirm-password" v-model="confirmPasswordRef" /><br>
+    <p>Already have an account? Go to <NuxtLink to="/login">Login</NuxtLink>
+    </p>
     <div v-if="formResult !== null && !formResult.success">
       {{ formResult.message }}
     </div>

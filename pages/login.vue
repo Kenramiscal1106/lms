@@ -50,6 +50,7 @@ const handleSubmit = (async (e) => {
       type: "incorrect",
       message: "internal server error"
     }
+    return
   }
   navigateTo({
     path: "/"
