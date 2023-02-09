@@ -1,10 +1,14 @@
 import { Users } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
-  const cookie = await getCookie(event, "dbSession");
+  const cookie = await readBody(event);
 
+  console.log(cookie);
   if (!cookie) {
-    return null;
+    throw createError({
+      statusCode: 400,
+      message: "unauthorized",
+    });
   }
 
   const user = await Users.findOne({
@@ -12,7 +16,10 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!user) {
-    return null;
+    throw createError({
+      statusCode: 400,
+      message: "session expired",
+    });
   }
 
   return {
