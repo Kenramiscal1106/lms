@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import z from "zod"
 definePageMeta({
-  middleware: "auth"
+  // middleware: "auth"
 })
 const formResult = ref<{
   success: boolean,
@@ -52,9 +52,10 @@ const handleSubmit = (async (e) => {
     }
     return
   }
-  navigateTo({
-    path: "/"
-  })
+  const url = new URLSearchParams(window.location.search)
+
+  // alert("successfully logged in")
+  window.location.pathname = "/"
 }) satisfies EventListener
 useHead({
   title: "Login | LMS"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod"
 definePageMeta({
-  middleware: "auth"
+  // middleware: ["auth"]
 })
 const passwordRef = ref("")
 const confirmPasswordRef = ref("")
