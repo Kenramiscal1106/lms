@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
     setCookie(event, "dbSession", user.userAuthToken, {
       path: "/",
       // server side only cookie so you can't use `document.cookie`
-      httpOnly: true,
+      httpOnly: false,
       // only requests from same site can send cookies
       // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
       sameSite: "strict",
