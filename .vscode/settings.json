@@ -5,6 +5,7 @@
     "utilities",
     "api",
     "middleware",
-    "composables"
+    "composables",
+    "components"
   ]
 }
