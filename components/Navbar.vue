@@ -1,40 +1,21 @@
 <script setup lang='ts'>
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
-const { data: courseData, error } = await useFetch("/api/courses")
+const { data: courseData, error, refresh } = await useFetch("/api/courses")
 
-const accessCodeAction = ((e) => {
+const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
-  const username = formData.get("username")
-  const password = formData.get('password')
+  const accessCode = formData.get("access-code")
 
-  /* const postReq = await fetch("/api/login", {
+  const postReq = await fetch("/api/access-code", {
     method: "POST",
-    body: JSON.stringify({ username, password })
-  });
-  const postRes = await postReq.json()
-  if (postReq.status === 400) {
-    formResult.value = {
-      success: false,
-      type: "incorrect",
-      message: "incorrect username or password"
-    }
-    return
-  }
-  if (postReq.status === 500) {
-    formResult.value = {
-      success: false,
-      type: "incorrect",
-      message: "internal server error"
-    }
-    return
-  }
-  const url = new URLSearchParams(window.location.search)
- */
-  // // alert("successfully logged in")
-  // window.location.pathname = "/"
+    body: JSON.stringify({ accessCode })
+  })
+  if (!postReq.ok) return
+  refresh()
 }) satisfies EventListener
+console.log(courseData.value?.courses[0])
 </script>
 <template>
   <nav>
@@ -59,13 +40,14 @@ const accessCodeAction = ((e) => {
   </nav>
   <div class="course-modal" v-if="coursesOpen">
     <button @click="accessCodeFormOpen = !accessCodeFormOpen">Join Course</button>
-    <form v-if="accessCodeFormOpen">
-      <input type="text" id="access-code" placeholder="Enter Access code" />
+    <form v-if="accessCodeFormOpen" @submit.prevent="accessCodeAction">
+      <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
       <button type="submit">Submit</button>
     </form>
     <div v-if="courseData !== null && courseData.courses.length !== 0">
-      <div v-for="courses in courseData">
-        <div>{{ courses }}</div>
+      Your courses
+      <div v-for="courses in courseData.courses">
+        <div>{{ courses.name }}</div>
       </div>
     </div>
   </div>
