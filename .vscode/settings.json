@@ -4,6 +4,7 @@
     "config",
     "utilities",
     "api",
-    "middleware"
+    "middleware",
+    "composables"
   ]
 }
