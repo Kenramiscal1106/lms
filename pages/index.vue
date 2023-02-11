@@ -14,3 +14,9 @@ useHead({
     <h1>Empty page</h1>
   </div>
 </template>
+
+<style>
+body {
+  margin-top: 5rem;
+}
+</style>
