@@ -19,20 +19,21 @@ const accessCodeAction = (async (e) => {
   <nav>
 
     <div>
-      <h2>LCCT</h2>
+      <h2>
+        <NuxtLink to="/">LCCT</NuxtLink>
+      </h2>
     </div>
     <div>
       <ul class="nav-sublinks">
         <li>
           <button @click="coursesOpen = !coursesOpen">Courses</button>
-          <!-- <NuxtLink to="/courses">Courses</NuxtLink> -->
-        </li>
+        </li><!-- 
         <li>
           <NuxtLink to="/groups">Groups</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/grades">Grades</NuxtLink>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>
