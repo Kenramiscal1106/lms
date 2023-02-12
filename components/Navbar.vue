@@ -2,7 +2,6 @@
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
 const { data: courseData, error, refresh } = await useFetch("/api/courses")
-
 const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
@@ -15,7 +14,6 @@ const accessCodeAction = (async (e) => {
   if (!postReq.ok) return
   refresh()
 }) satisfies EventListener
-console.log(courseData.value?.courses[0])
 </script>
 <template>
   <nav>
@@ -47,7 +45,7 @@ console.log(courseData.value?.courses[0])
     <div v-if="courseData !== null && courseData.courses.length !== 0">
       Your courses
       <div v-for="courses in courseData.courses">
-        <div>{{ courses.name }}</div>
+        <NuxtLink :to="`/courses/${courses._id}`">{{ courses.name }}</NuxtLink>
       </div>
     </div>
   </div>
