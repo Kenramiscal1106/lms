@@ -1,7 +1,7 @@
 import { Users } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
-  const sessionCookie = await getCookie(event, "dbSession");
+  const sessionCookie = getCookie(event, "dbSession");
 
   if (!sessionCookie) {
     throw createError({
@@ -10,13 +10,20 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const user = await Users.findOne({
-    userAuthToken: sessionCookie,
-  })
-    .populate("courses")
-    .select("courses");
+  const user = await Users.findOne(
+    {
+      userAuthToken: sessionCookie,
+    },
+    {
+      courses: true,
+      username: true,
+    }
+  ).populate("courses", {
+    name: true,
+    members: true,
+  });
 
-  console.log(user);
+  // console.log(user);
   if (!user) {
     throw createError({
       statusCode: 400,
