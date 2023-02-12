@@ -20,7 +20,6 @@ export default defineEventHandler(async (event) => {
     }
   ).populate("courses", {
     name: true,
-    members: true,
   });
 
   // console.log(user);
