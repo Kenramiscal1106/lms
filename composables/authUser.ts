@@ -1,6 +1,5 @@
 export const useUserSession = async () => {
   const sessionCookie = useCookie("dbSession");
-  console.log(sessionCookie.value);
   if (!sessionCookie.value)
     return {
       isLoggedIn: false,

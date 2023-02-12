@@ -3,7 +3,6 @@ import { Users } from "@/utils/models";
 export default defineEventHandler(async (event) => {
   const cookie = await readBody(event);
 
-  console.log(cookie);
   if (!cookie) {
     throw createError({
       statusCode: 400,
