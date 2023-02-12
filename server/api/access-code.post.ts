@@ -1,30 +1,45 @@
-import { Users } from "@/utils/models";
+import { Users, Courses } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
-  /* const sessionCookie = await getCookie(event, "dbSession");
+  const { accessCode } = await readBody(event);
+  const sessionCookie = await getCookie(event, "dbSession");
 
   if (!sessionCookie) {
     throw createError({
-      statusCode: 400,
+      statusCode: 401,
       message: "unauthorized",
     });
   }
 
+  const targetCourse = await Courses.findById(accessCode);
   const user = await Users.findOne({
     userAuthToken: sessionCookie,
-  })
-    .populate("courses")
-    .select("courses");
-
-  console.log(user);
-  if (!user) {
+  });
+  if (!targetCourse && !user) {
     throw createError({
       statusCode: 400,
-      message: "session expired",
+      message: "bad Request",
     });
   }
-
+  await Promise.allSettled([
+    Users.updateOne(
+      {
+        userAuthToken: sessionCookie,
+      },
+      {
+        $push: {
+          courses: accessCode,
+        },
+      }
+    ),
+    Courses.findByIdAndUpdate(accessCode, {
+      $push: {
+        members: user._id,
+      },
+    }),
+  ]);
+  console.log("update done");
   return {
-    courses: user.courses,
-  }; */
+    success: true,
+  };
 });
