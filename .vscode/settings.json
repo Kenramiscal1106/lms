@@ -6,6 +6,7 @@
     "api",
     "middleware",
     "composables",
-    "components"
+    "components",
+    "layouts"
   ]
 }
