@@ -1,4 +1,4 @@
-import { Users, Courses } from "@/utils/models";
+import { Courses } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
   const sessionCookie = getCookie(event, "dbSession");
@@ -19,7 +19,5 @@ export default defineEventHandler(async (event) => {
     username: true,
   });
 
-  return {
-    courses: targetCourse,
-  };
+  return targetCourse;
 });
