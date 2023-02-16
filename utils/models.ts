@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-// import { connectToDB  } from "./database";
+import type { CourseSchema } from "./types";
 
 const { NUXT_MONGO_URL } = process.env;
 
@@ -16,7 +16,7 @@ mongoose.connect(
   }
 );
 // connectToDB();
-const courses = new mongoose.Schema({
+const courses = new mongoose.Schema<CourseSchema>({
   name: String,
   assignments: [],
   quizes: [],
@@ -29,10 +29,13 @@ const courses = new mongoose.Schema({
       ref: "user",
     },
   ],
+  role: {
+    type: String,
+    default: "student",
+  },
 });
 
-export const Courses =
-  mongoose.models.courses || mongoose.model("courses", courses);
+export const Courses = mongoose.model<CourseSchema>("courses", courses);
 
 export const users = new mongoose.Schema({
   firstName: String,
