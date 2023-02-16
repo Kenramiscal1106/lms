@@ -1,4 +1,5 @@
 import { Users } from "@/utils/models";
+import { CourseSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
   const cookie = await readBody(event);
@@ -12,6 +13,8 @@ export default defineEventHandler(async (event) => {
 
   const user = await Users.findOne({
     userAuthToken: cookie,
+  }).populate<{ courses: Pick<CourseSchema, "_id" | "name"> }>("courses", {
+    name: true,
   });
 
   if (!user) {
@@ -21,7 +24,5 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return {
-    message: "successfully logged in",
-  };
+  return user;
 });
