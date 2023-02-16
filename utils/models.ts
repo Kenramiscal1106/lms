@@ -16,6 +16,7 @@ mongoose.connect(
   }
 );
 // connectToDB();
+mongoose.set("strictQuery", false);
 const courses = new mongoose.Schema<CourseSchema>({
   name: {
     type: String,
@@ -43,8 +44,14 @@ export const Courses = mongoose.model<CourseSchema>("courses", courses);
 
 export const users = new mongoose.Schema<UserSchema>({
   firstName: String,
-  passwordHash: String,
-  userAuthToken: String,
+  passwordHash: {
+    type: String,
+    index: true,
+  },
+  userAuthToken: {
+    type: String,
+    index: true,
+  },
   lastName: String,
   username: String,
   courses: [
