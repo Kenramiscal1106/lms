@@ -1,5 +1,5 @@
 import { Users } from "@/utils/models";
-import { CourseSchema } from "~~/utils/types";
+import { CourseSchema, UserSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
   const cookie = await readBody(event);
@@ -11,9 +11,18 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const user = await Users.findOne({
-    userAuthToken: cookie,
-  }).populate<{ courses: Pick<CourseSchema, "_id" | "name"> }>("courses", {
+  const user = await Users.findOne(
+    {
+      userAuthToken: cookie,
+    },
+    {
+      _id: true,
+      courses: true,
+      firstName: true,
+      lastName: true,
+      username: true,
+    }
+  ).populate<{ courses: Pick<CourseSchema, "_id" | "name"> }>("courses", {
     name: true,
   });
 
