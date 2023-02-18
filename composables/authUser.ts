@@ -5,11 +5,18 @@ export const useUserSession = async () => {
       isLoggedIn: false,
     };
 
-  const { data, error, pending } = await useFetch("/api/auth", {
+  const {
+    data: { value: userData },
+    error,
+    pending: { value: pending },
+  } = await useFetch("/api/auth", {
     body: sessionCookie.value,
     method: "post",
   });
   return {
     isLoggedIn: error.value === null,
+    userData,
+    pending,
   };
 };
+export const useCurrentUser = () => useState<any>("user", () => null);
