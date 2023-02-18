@@ -5,6 +5,12 @@ console.log(route.params)
 definePageMeta({
   middleware: ["auth"]
 })
+if (!data.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Not found"
+  })
+}
 useHead({
   title: data.value.name
 })
