@@ -9,7 +9,6 @@ export type CourseSchema = {
   pages: any[];
   posts: any[];
   members: Types.ObjectId[];
-  role: "student" | "teacher" | "admin";
 };
 
 export type UserSchema = {
@@ -20,4 +19,5 @@ export type UserSchema = {
   lastName: string;
   username: string;
   courses: Types.ObjectId[];
+  role: "student" | "teacher" | "admin";
 };
