@@ -1,7 +1,14 @@
 <script setup lang='ts'>
+import { useCurrentUser } from '~~/composables/authUser';
+
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
-const { data: courseData, error, refresh } = await useFetch("/api/courses")
+const user = await useUserSession()
+const userStore = useCurrentUser()
+userStore.value = user
+
+
+const { data: courseData, refresh } = await useFetch("/api/courses")
 const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
@@ -27,13 +34,7 @@ const accessCodeAction = (async (e) => {
       <ul class="nav-sublinks">
         <li>
           <button @click="coursesOpen = !coursesOpen">Courses</button>
-        </li><!-- 
-        <li>
-          <NuxtLink to="/groups">Groups</NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/grades">Grades</NuxtLink>
-        </li> -->
       </ul>
     </div>
   </nav>
