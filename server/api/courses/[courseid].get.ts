@@ -1,4 +1,5 @@
-import { Courses } from "@/utils/models";
+import { Courses } from "~~/utils/models";
+import { UserSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
   const sessionCookie = getCookie(event, "dbSession");
@@ -10,10 +11,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const targetCourse = await Courses.findById(event.context.params?.courseid, {
-    name: true,
-    members: true,
-  }).populate("members", {
+  const targetCourse = await Courses.findById(
+    event.context.params?.courseid
+  ).populate<{
+    members: Pick<UserSchema, "lastName" | "firstName" | "username" | "_id">[];
+  }>("members", {
     firstName: true,
     lastName: true,
     username: true,
