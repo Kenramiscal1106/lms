@@ -3,6 +3,8 @@ export const useUserSession = async () => {
   if (!sessionCookie.value)
     return {
       isLoggedIn: false,
+      userData: null,
+      pending: false,
     };
 
   const {
@@ -19,4 +21,13 @@ export const useUserSession = async () => {
     pending,
   };
 };
-export const useCurrentUser = () => useState<any>("user", () => null);
+export const useCourseData = async (courseId: string) => {
+  const fetch = await useFetch(`/api/courses/${courseId}`);
+  return { ...fetch };
+};
+type UserSession = Awaited<ReturnType<typeof useUserSession>>;
+type CourseData = Awaited<ReturnType<typeof useCourseData>>;
+export const useCurrentUser = () =>
+  useState<null | UserSession>("user", () => null);
+export const useCurrentCourse = () =>
+  useState<null | CourseData["data"]["value"]>("course", () => null);
