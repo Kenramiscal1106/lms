@@ -33,11 +33,6 @@ const courses = new mongoose.Schema<CourseSchema>({
       ref: "user",
     },
   ],
-  role: {
-    type: String,
-    default: "student",
-    required: true,
-  },
 });
 
 export const Courses = mongoose.model<CourseSchema>("courses", courses);
@@ -60,5 +55,10 @@ export const users = new mongoose.Schema<UserSchema>({
       ref: "courses",
     },
   ],
+  role: {
+    type: String,
+    default: "student",
+    required: true,
+  },
 });
 export const Users = mongoose.model<UserSchema>("user", users);
