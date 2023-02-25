@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
       firstName: true,
       lastName: true,
       username: true,
+      role: true,
     }
   ).populate<{ courses: Pick<CourseSchema, "_id" | "name"> }>("courses", {
     name: true,
