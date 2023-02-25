@@ -1,7 +1,14 @@
 <script setup lang='ts'>
 const route = useRoute()
-const { data } = await useFetch(`/api/courses/${route.params.coursename}`)
-console.log(route.params)
+if (typeof route.params.coursename !== "string") {
+  throw createError({
+    statusCode: 400,
+    statusMessage: "Unresolved error"
+  })
+}
+const { data } = await useCourseData(route.params.coursename)
+const courseStore = useCurrentCourse()
+courseStore.value = data.value
 definePageMeta({
   middleware: ["auth"]
 })
@@ -12,7 +19,7 @@ if (!data.value) {
   })
 }
 useHead({
-  title: data.value.name
+  title: data.value.name + " | LMS"
 })
 </script>
 <template>
@@ -20,8 +27,6 @@ useHead({
     <NuxtLink :to="`/courses/${route.params.coursename}`">Materials</NuxtLink>
     <NuxtLink :to="`/courses/${route.params.coursename}/members`">Members</NuxtLink>
   </aside>
-  <NuxtPage :data="data" />
+  <NuxtPage />
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>
