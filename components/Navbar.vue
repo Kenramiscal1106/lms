@@ -8,7 +8,7 @@ const userStore = useCurrentUser()
 userStore.value = user
 
 
-const { data: courseData, refresh } = await useFetch("/api/courses")
+// const { data: courseData, refresh } = await useFetch("/api/courses")
 const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
@@ -19,7 +19,7 @@ const accessCodeAction = (async (e) => {
     body: JSON.stringify({ accessCode })
   })
   if (!postReq.ok) return
-  refresh()
+  userStore.value && userStore.value.update && userStore.value.update()
 }) satisfies EventListener
 </script>
 <template>
@@ -44,9 +44,9 @@ const accessCodeAction = (async (e) => {
       <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
       <button type="submit">Submit</button>
     </form>
-    <div v-if="courseData !== null && courseData.courses.length !== 0">
+    <div v-if="userStore !== null && userStore.userData && userStore.userData.courses.length !== 0">
       Your courses
-      <div v-for="courses in courseData.courses">
+      <div v-for="courses in userStore.userData.courses">
         <NuxtLink :to="`/courses/${courses._id}`">{{ courses.name }}</NuxtLink>
       </div>
     </div>
