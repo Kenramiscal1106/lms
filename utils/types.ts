@@ -9,6 +9,7 @@ export type CourseSchema = {
   pages: any[];
   posts: any[];
   members: Types.ObjectId[];
+  folderStructure: FsItem[];
 };
 
 export type UserSchema = {
@@ -21,3 +22,15 @@ export type UserSchema = {
   courses: Types.ObjectId[];
   role: "student" | "teacher" | "admin";
 };
+
+type FsItem =
+  | {
+      name: string;
+      type: "folder";
+      children: FsItem[];
+    }
+  | {
+      name: string;
+      type: "assignment" | "quiz" | "forums" | "pages" | "posts";
+      to: string;
+    };
