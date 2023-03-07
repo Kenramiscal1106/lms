@@ -12,7 +12,7 @@ console.log(userStore.value)
 <template>
   <div>
     <h1>Empty page</h1>
-</div>
+  </div>
 </template>
 
 <style>
