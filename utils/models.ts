@@ -33,6 +33,7 @@ const courses = new mongoose.Schema<CourseSchema>({
       ref: "user",
     },
   ],
+  folderStructure: [],
 });
 
 export const Courses = mongoose.model<CourseSchema>("courses", courses);
