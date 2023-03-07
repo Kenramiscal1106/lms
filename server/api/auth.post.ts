@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
       username: true,
       role: true,
     }
-  ).populate<{ courses: Pick<CourseSchema, "_id" | "name"> }>("courses", {
+  ).populate<{ courses: Pick<CourseSchema, "_id" | "name">[] }>("courses", {
     name: true,
   });
 
