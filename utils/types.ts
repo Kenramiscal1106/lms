@@ -23,7 +23,7 @@ export type UserSchema = {
   role: "student" | "teacher" | "admin";
 };
 
-type FsItem =
+export type FsItem =
   | {
       name: string;
       type: "folder";
