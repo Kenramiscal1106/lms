@@ -11,14 +11,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const targetCourse = await Courses.findById(
-    event.context.params?.courseid
-  ).populate<{
-    members: Pick<UserSchema, "lastName" | "firstName" | "username" | "_id">[];
-  }>("members", {
-    firstName: true,
-    lastName: true,
-    username: true,
+  const targetCourse = await Courses.findById(event.context.params?.courseid, {
+    name: true,
   });
 
   return targetCourse;
