@@ -12,10 +12,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const targetCourse = await Courses.findById(event.context.params?.courseid, {
-    assignments: true,
-    pages: true,
-    quizes: true,
-    forums: true,
+    folderStructure: true,
   });
 
   return targetCourse;
