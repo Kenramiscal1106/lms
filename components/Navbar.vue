@@ -47,7 +47,7 @@ const accessCodeAction = (async (e) => {
     <div v-if="userStore !== null && userStore.userData && userStore.userData.courses.length !== 0">
       Your courses
       <div v-for="courses in userStore.userData.courses">
-        <NuxtLink :to="`/courses/${courses._id}`">{{ courses.name }}</NuxtLink>
+        <NuxtLink :to="`/course/${courses._id}`">{{ courses.name }}</NuxtLink>
       </div>
     </div>
   </div>
