@@ -23,9 +23,10 @@ useHead({
 })
 </script>
 <template>
+  <h1>{{ data && data.name }}</h1>
   <aside>
-    <NuxtLink :to="`/courses/${route.params.coursename}`">Materials</NuxtLink>
-    <NuxtLink :to="`/courses/${route.params.coursename}/members`">Members</NuxtLink>
+    <NuxtLink :to="`/course/${route.params.coursename}`">Materials</NuxtLink>
+    <NuxtLink :to="`/course/${route.params.coursename}/members`">Members</NuxtLink>
   </aside>
   <NuxtPage />
 </template>
