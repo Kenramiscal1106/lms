@@ -18,10 +18,10 @@ export default defineEventHandler(async (event) => {
   if (limit && !Array.isArray(limit)) {
     options.limit = parseInt(limit);
   }
-  let targetCourse = await Courses.findById(event.context.params?.courseid, {
+  const targetCourse = await Courses.findById(event.context.params?.courseid, {
     members: true,
   }).populate<{
-    members: Pick<UserSchema, "lastName" | "firstName" | "username" | "_id">;
+    members: Pick<UserSchema, "lastName" | "firstName" | "username" | "_id">[];
   }>({
     path: "members",
     options,
