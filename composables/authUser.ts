@@ -5,12 +5,14 @@ export const useUserSession = async () => {
       isLoggedIn: false,
       userData: null,
       pending: false,
+      update: null,
     };
 
   const {
     data: { value: userData },
     error,
     pending: { value: pending },
+    refresh,
   } = await useFetch("/api/auth", {
     body: sessionCookie.value,
     method: "post",
@@ -19,10 +21,11 @@ export const useUserSession = async () => {
     isLoggedIn: error.value === null,
     userData,
     pending,
+    update: refresh,
   };
 };
 export const useCourseData = async (courseId: string) => {
-  const fetch = await useFetch(`/api/courses/${courseId}`);
+  const fetch = await useFetch(`/api/course/${courseId}`);
   return { ...fetch };
 };
 type UserSession = Awaited<ReturnType<typeof useUserSession>>;
