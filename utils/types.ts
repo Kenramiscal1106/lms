@@ -34,3 +34,26 @@ export type FsItem =
       type: "assignment" | "quiz" | "forums" | "pages" | "posts";
       to: string;
     };
+
+export type QuizItemSchema = {
+  question: string;
+  items: number;
+} & (
+  | {
+      type: "multiple choice";
+      options: Map<string, string>;
+      correctAnswer: string;
+    }
+  | {
+      type: "short form";
+      answer: string;
+      correctAnswer: string;
+    }
+  | {
+      type: "essay";
+      answer: string;
+    }
+);
+export type MultipleChoiceSchema = QuizItemSchema & {
+  type: "multiple choice";
+};
