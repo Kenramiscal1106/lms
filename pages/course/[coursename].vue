@@ -23,7 +23,7 @@ useHead({
 })
 </script>
 <template>
-  <main>
+  <div class="main">
     <aside>
       <div class="link-container">
         <NuxtLink :to="`/course/${route.params.coursename}`"
@@ -37,13 +37,15 @@ useHead({
         </NuxtLink>
       </div>
     </aside>
-    <div>
+    <main>
+      <div>
 
-      <h1>{{ data && data.name }}</h1>
+        <h1>{{ data && data.name }}</h1>
 
-      <NuxtPage />
-    </div>
-  </main>
+        <NuxtPage />
+      </div>
+    </main>
+  </div>
 </template>
 <style scoped>
 .link:not(.open) {
@@ -64,11 +66,17 @@ useHead({
   flex-flow: column nowrap;
 }
 
-main {
+.main {
   display: flex;
+  max-width: 70rem;
+  margin: auto;
 }
 
 aside {
-  width: 10rem;
+  flex: 0 1 12rem;
+}
+
+main {
+  flex: 1 1 0;
 }
 </style>
