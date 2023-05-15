@@ -35,9 +35,14 @@ export type FsItem =
       to: string;
     };
 
-export type QuizItemSchema = {
+export type CourseMaterial = {
+  published: boolean;
+  deadline: string;
+};
+
+export type QuizItem = {
   question: string;
-  items: number;
+  equivalentPoints: number;
 } & (
   | {
       type: "multiple choice";
@@ -45,15 +50,28 @@ export type QuizItemSchema = {
       correctAnswer: string;
     }
   | {
-      type: "short form";
-      answer: string;
-      correctAnswer: string;
+      type: "identification";
+      correctAnswers: string[];
+      caseSensitive: boolean;
     }
   | {
       type: "essay";
-      answer: string;
     }
 );
-export type MultipleChoiceSchema = QuizItemSchema & {
-  type: "multiple choice";
+
+export type Quiz = {
+  instructions: string;
+  items: QuizItem[];
+} & CourseMaterial;
+
+export type Assignment = {
+  instructions: string;
+} & CourseMaterial;
+
+export type Post = {
+  author: Types.ObjectId;
+  content: string;
 };
+export type Forums = {
+  query: string;
+} & CourseMaterial;
