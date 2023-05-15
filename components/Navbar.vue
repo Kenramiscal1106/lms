@@ -7,8 +7,6 @@ const user = await useUserSession()
 const userStore = useCurrentUser()
 userStore.value = user
 
-
-// const { data: courseData, refresh } = await useFetch("/api/courses")
 const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
