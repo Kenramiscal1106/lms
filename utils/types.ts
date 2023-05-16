@@ -41,6 +41,7 @@ export type CourseMaterial = {
 };
 
 export type QuizItem = {
+  itemId: string;
   question: string;
   equivalentPoints: number;
 } & (
