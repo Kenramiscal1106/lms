@@ -1,60 +1,26 @@
-import { QuizItemSchema } from "~~/utils/types";
+// import { QuizItemSchema } from "~~/utils/types";
+import { defineStore } from "pinia";
+import { Quiz, QuizItem } from "~~/utils/types";
 
-export const useQuizItems = () =>
-  useState<QuizItemSchema[]>("quizItems", () => [
-    {
-      question: "What is 10 x 10?",
-      type: "multiple choice",
-      correctAnswer: "511638de-1ac6-40ba-ac5e-b5ed5ec1e679",
-      options: new Map([
-        ["511638de-1ac6-40ba-ac5e-b5ed5ec1e679", "100"],
-        ["73adaf1b-aa76-49ec-87ad-8dc23371475c", "10"],
-        ["6c63ad3f-1177-408e-a5a7-d71e796814ac =>", "11"],
-      ]),
-      items: 1,
+export const useQuizStore = defineStore<string, Quiz>("quizItems", {
+  state() {
+    return {
+      instructions: "",
+      deadline: "",
+      items: [],
+      published: false,
+    };
+  },
+  actions: {
+    addItem(item: QuizItem) {
+      this.items.push(item);
     },
-    {
-      question: "What is 10 x 10?",
-      type: "multiple choice",
-      correctAnswer: "511638de-1ac6-40ba-ac5e-b5ed5ec1e679",
-      options: new Map([
-        ["511638de-1ac6-40ba-ac5e-b5ed5ec1e679", "100"],
-        ["73adaf1b-aa76-49ec-87ad-8dc23371475c", "10"],
-        ["6c63ad3f-1177-408e-a5a7-d71e796814ac =>", "11"],
-      ]),
-      items: 1,
+    updateItem(id: string, key: string, item: QuizItem) {},
+    removeItem(id: string) {
+      this.items = this.items.filter((item) => item.itemId == id);
     },
-    {
-      question: "What is 10 x 10?",
-      type: "multiple choice",
-      correctAnswer: "511638de-1ac6-40ba-ac5e-b5ed5ec1e679",
-      options: new Map([
-        ["511638de-1ac6-40ba-ac5e-b5ed5ec1e679", "100"],
-        ["73adaf1b-aa76-49ec-87ad-8dc23371475c", "10"],
-        ["6c63ad3f-1177-408e-a5a7-d71e796814ac =>", "11"],
-      ]),
-      items: 1,
+    updateinstructions(newInstruction: string) {
+      this.instructions = newInstruction;
     },
-    {
-      question: "What is 10 x 10?",
-      type: "multiple choice",
-      correctAnswer: "511638de-1ac6-40ba-ac5e-b5ed5ec1e679",
-      options: new Map([
-        ["511638de-1ac6-40ba-ac5e-b5ed5ec1e679", "100"],
-        ["73adaf1b-aa76-49ec-87ad-8dc23371475c", "10"],
-        ["6c63ad3f-1177-408e-a5a7-d71e796814ac =>", "11"],
-      ]),
-      items: 1,
-    },
-    {
-      question: "What is 10 x 10?",
-      type: "multiple choice",
-      correctAnswer: "511638de-1ac6-40ba-ac5e-b5ed5ec1e679",
-      options: new Map([
-        ["511638de-1ac6-40ba-ac5e-b5ed5ec1e679", "100"],
-        ["73adaf1b-aa76-49ec-87ad-8dc23371475c", "10"],
-        ["6c63ad3f-1177-408e-a5a7-d71e796814ac =>", "11"],
-      ]),
-      items: 1,
-    },
-  ]);
+  },
+});
