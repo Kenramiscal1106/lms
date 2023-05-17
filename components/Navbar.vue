@@ -3,6 +3,8 @@ import { useCurrentUser } from '~~/composables/authUser';
 
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
+
+const router = useRouter()
 const user = await useUserSession()
 const userStore = useCurrentUser()
 userStore.value = user
@@ -17,7 +19,7 @@ const accessCodeAction = (async (e) => {
     body: JSON.stringify({ accessCode })
   })
   if (!postReq.ok) return
-  userStore.value && userStore.value.update && userStore.value.update()
+  window.location.reload()
 }) satisfies EventListener
 </script>
 <template>
@@ -44,8 +46,8 @@ const accessCodeAction = (async (e) => {
     </form>
     <div v-if="userStore !== null && userStore.userData && userStore.userData.courses.length !== 0">
       Your courses
-      <div v-for="courses in userStore.userData.courses">
-        <NuxtLink :to="`/course/${courses._id}`">{{ courses.name }}</NuxtLink>
+      <div v-for="course in userStore.userData.courses">
+        <NuxtLink :to="`/course/${course._id}`">{{ course.name }}</NuxtLink>
       </div>
     </div>
   </div>
