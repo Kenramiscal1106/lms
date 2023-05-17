@@ -5,8 +5,6 @@ definePageMeta({
 useHead({
   title: "Home | LMS"
 })
-const userStore = useCurrentUser()
-console.log(userStore.value)
 </script>
 
 <template>
