@@ -8,7 +8,7 @@ const { fileStructure } = defineProps<{
 </script>
 
 <template >
-  <ul v-for="file in fileStructure">
+  <div v-for="file in fileStructure">
     <Item :item="file" />
-  </ul>
+  </div>
 </template>
