@@ -21,7 +21,6 @@ export const useUserSession = async () => {
     isLoggedIn: error.value === null,
     userData,
     pending,
-    update: refresh,
   };
 };
 export const useCourseData = async (courseId: string) => {
