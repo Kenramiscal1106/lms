@@ -34,5 +34,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return user;
+  return {
+    _id: user._id.toString(),
+    courses: user.courses,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    role: user.role,
+  };
 });
