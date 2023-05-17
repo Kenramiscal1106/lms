@@ -9,6 +9,7 @@
 @layer base {
   * {
     font-family: "Inter";
+    border: 1px solid black;
   }
 
   h1 {
