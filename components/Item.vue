@@ -7,11 +7,22 @@ const { item } = defineProps<{
 </script>
 
 <template>
-  <li v-if="item.type === 'folder'">
-    {{ item.name }}
-    <ListItems :file-structure="item.children" />
-  </li>
-  <li v-else>
-    <NuxtLink :to="`${item.type}/${item.to}`">{{ item.name }}</NuxtLink>
-  </li>
+  <details v-if="item.type === 'folder'" class="my-1">
+    <summary class="flex space-x-5 px-4 py-2">
+      <div>{{ item.name }}</div>
+
+      <div class="flex space-x-3">
+        <button>
+          📁
+        </button>
+        <button>
+          🗄
+        </button>
+      </div>
+    </summary>
+    <div class="ml-6">
+      <ListItems :file-structure="item.children" />
+    </div>
+  </details>
+  <NuxtLink :to="`${item.type}/${item.to}`" v-else class="block px-4 py-2 my-1">{{ item.name }}</NuxtLink>
 </template>
