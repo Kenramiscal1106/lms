@@ -15,5 +15,11 @@ export default defineEventHandler(async (event) => {
     name: true,
   });
 
-  return targetCourse;
+  if (targetCourse === null) {
+    throw createError({
+      statusCode: 404,
+      message: "not found",
+    });
+  }
+  return { name: targetCourse.name };
 });
