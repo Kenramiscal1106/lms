@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
-const { label } = defineProps<{ label: string }>()
 const addMaterial = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
   const formData = Object.fromEntries(new FormData(formTarget).entries())
