@@ -36,21 +36,16 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody(event);
 
-  targetCourse.update(
-    {
-      $push: {
-        folderStructure: {
-          name: body.name,
-          type: body.type,
-        },
+  targetCourse.updateOne({
+    $push: {
+      folderStructure: {
+        name: body.name,
+        type: body.type,
       },
     },
-    {},
-    () => {
-      console.log("triggered push");
-    }
-  );
+  });
   return {
-    success: undefined,
+    success: true,
+    message: "updated successfully",
   };
 });
