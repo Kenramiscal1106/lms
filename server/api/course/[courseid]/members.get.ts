@@ -27,5 +27,12 @@ export default defineEventHandler(async (event) => {
     options,
     select: ["lastName", "firstName", "username"],
   });
-  return targetCourse;
+
+  if (!targetCourse) {
+    throw createError({
+      message: "not found",
+      statusCode: 404,
+    });
+  }
+  return { members: targetCourse.members };
 });

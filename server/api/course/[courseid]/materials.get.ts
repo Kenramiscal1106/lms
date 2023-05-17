@@ -15,5 +15,11 @@ export default defineEventHandler(async (event) => {
     folderStructure: true,
   });
 
-  return targetCourse;
+  if (!targetCourse) {
+    throw createError({
+      statusCode: 404,
+      message: "not found",
+    });
+  }
+  return { folderStructure: targetCourse.folderStructure };
 });
