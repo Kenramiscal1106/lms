@@ -32,4 +32,8 @@
     @apply list-disc;
   }
 }
+
+body {
+  margin-top: 5rem;
+}
 </style>
