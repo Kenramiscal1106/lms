@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     ),
     Courses.findByIdAndUpdate(accessCode, {
       $push: {
-        members: user._id,
+        members: user && user._id,
       },
     }),
   ]);
