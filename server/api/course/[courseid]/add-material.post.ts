@@ -1,4 +1,5 @@
 import { Users, Courses } from "~/utils/models";
+import { v4 as randomUUID } from "uuid";
 
 export default defineEventHandler(async (event) => {
   const sessionCookie = getCookie(event, "dbSession");
@@ -33,17 +34,57 @@ export default defineEventHandler(async (event) => {
       message: "you're not a member",
     });
   }
-
   const body = await readBody(event);
+  const materialUID = randomUUID();
+  let pushObj: any = {};
+  if (body.type === "quiz") {
+    pushObj[body.type + "es"] = {
+      name: body.name,
+      itemId: materialUID,
+      published: false,
+      deadline: "",
+      instructions: "",
+      items: [],
+    };
+  } else {
+    pushObj[body.type + "s"] = {
+      name: body.name,
+      itemId: materialUID,
+      published: false,
+      deadline: "",
+    };
+  }
+  console.log(pushObj);
+  switch (body.type) {
+    case "assignment": {
+      pushObj.assignments.instructions = "";
+      break;
+    }
 
-  targetCourse.updateOne({
-    $push: {
-      folderStructure: {
-        name: body.name,
-        type: body.type,
+    case "page": {
+      pushObj.pages.text = "";
+      break;
+    }
+
+    case "forum": {
+      pushObj.forums.query = "";
+      break;
+    }
+  }
+  Promise.allSettled([
+    targetCourse.updateOne({
+      $push: {
+        folderStructure: {
+          name: body.name,
+          type: body.type,
+          to: materialUID,
+        },
       },
-    },
-  });
+    }),
+    targetCourse.updateOne({
+      $push: pushObj,
+    }),
+  ]);
   return {
     success: true,
     message: "updated successfully",

@@ -36,14 +36,16 @@ export type FsItem =
     };
 
 export type CourseMaterial = {
+  name: string;
+  materialId: string;
   published: boolean;
   deadline: string;
 };
 
 export type QuizItem = {
-  itemId: string;
   question: string;
   equivalentPoints: number;
+  itemId: string;
 } & (
   | {
       type: "multiple choice";
@@ -75,4 +77,7 @@ export type Post = {
 };
 export type Forums = {
   query: string;
+} & CourseMaterial;
+export type Pages = {
+  text: string;
 } & CourseMaterial;

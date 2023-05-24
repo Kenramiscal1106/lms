@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 const route = useRoute()
-const { data } = useFetch(`/api/course/${route.params.coursename}/members`)
+const { data } = useFetch(`/api/course/${route.params.courseid}/members`)
 // console.log(data.value.members)
 </script>
 <template>
