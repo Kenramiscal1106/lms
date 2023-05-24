@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-// import { connectToDB } from "@/utils/database";
 import { v4 as uuidv4 } from "uuid";
 import { Users } from "@/utils/models";
 
@@ -26,11 +25,13 @@ export default defineEventHandler(async (event) => {
       userAuthToken: uuidv4(),
     });
   } catch {
-    event.node.res.statusCode = 500;
-    return {
-      success: false,
-      message: "database error",
-    };
+    throw createError({
+      statusCode: 500,
+      data: {
+        success: false,
+        message: "database error",
+      },
+    });
   }
   return {
     success: true,
