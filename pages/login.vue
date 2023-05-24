@@ -35,7 +35,6 @@ const handleSubmit = (async (e) => {
     method: "POST",
     body: JSON.stringify({ username, password })
   });
-  const postRes = await postReq.json()
   if (postReq.status === 400) {
     formResult.value = {
       success: false,
