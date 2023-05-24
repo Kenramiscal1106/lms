@@ -2,18 +2,10 @@ import { Users, Courses } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
   const { accessCode } = await readBody(event);
-  const sessionCookie = await getCookie(event, "dbSession");
-
-  if (!sessionCookie) {
-    throw createError({
-      statusCode: 401,
-      message: "unauthorized",
-    });
-  }
 
   const targetCourse = await Courses.findById(accessCode);
   const user = await Users.findOne({
-    userAuthToken: sessionCookie,
+    userAuthToken: event.context.sessionCookie,
   });
   if (!targetCourse && !user) {
     throw createError({
@@ -24,7 +16,7 @@ export default defineEventHandler(async (event) => {
   await Promise.allSettled([
     Users.updateOne(
       {
-        userAuthToken: sessionCookie,
+        userAuthToken: event.context.sessionCookie,
       },
       {
         $push: {

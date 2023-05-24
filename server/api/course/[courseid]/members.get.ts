@@ -3,15 +3,9 @@ import { Courses } from "~~/utils/models";
 import { UserSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
-  const sessionCookie = getCookie(event, "dbSession");
   const { limit, skip } = getQuery(event);
   let options: QueryOptions = {};
-  if (!sessionCookie) {
-    throw createError({
-      statusCode: 400,
-      message: "unauthorized",
-    });
-  }
+
   if (skip && !Array.isArray(skip)) {
     options.skip = parseInt(skip);
   }

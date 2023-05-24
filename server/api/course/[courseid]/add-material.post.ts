@@ -2,20 +2,12 @@ import { Users, Courses } from "~/utils/models";
 import { v4 as randomUUID } from "uuid";
 
 export default defineEventHandler(async (event) => {
-  const sessionCookie = getCookie(event, "dbSession");
-
-  if (!sessionCookie) {
-    throw createError({
-      statusCode: 400,
-      message: "expired/false session",
-    });
-  }
   // we want the routes to only be accessed by the teacher
   const targetCourse = await Courses.findById(event.context.params?.courseid, {
     members: true,
   });
   const user = await Users.findOne({
-    userAuthToken: sessionCookie,
+    userAuthToken: event.context.sessionCookie,
   });
   if (!targetCourse || user === null) {
     throw createError({
