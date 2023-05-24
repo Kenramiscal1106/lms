@@ -3,7 +3,7 @@ const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
 const addMaterial = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
   const formData = Object.fromEntries(new FormData(formTarget).entries())
-  const postReq = await fetch(`/api/course/${route.params.coursename}/add-material`, {
+  const postReq = await fetch(`/api/course/${route.params.courseid}/add-material`, {
     method: "POST",
     body: JSON.stringify(formData)
   })
@@ -24,7 +24,7 @@ const addMaterial = (async (e) => {
         <option value="quiz">Quiz</option>
         <option value="assignment">Assignment</option>
         <option value="page">Page</option>
-        <option value="forums">Forums</option>
+        <option value="forum">Forums</option>
       </select> <br />
       <label for="material-name">Material name</label>
       <input type="text" name="name" id="material-name">
