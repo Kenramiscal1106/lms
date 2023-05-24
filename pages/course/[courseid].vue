@@ -25,6 +25,7 @@ useHead({
 <template>
   <div class="main">
     <aside>
+      <h1>{{ data && data.name }}</h1>
       <div class="link-container">
         <NuxtLink :to="`/course/${route.params.courseid}`"
           :class="`link ${route.path === `/course/${route.params.courseid}` ? ' open' : ''}`">Materials
@@ -38,12 +39,7 @@ useHead({
       </div>
     </aside>
     <main>
-      <div>
-
-        <h1>{{ data && data.name }}</h1>
-
-        <NuxtPage />
-      </div>
+      <NuxtPage />
     </main>
   </div>
 </template>
