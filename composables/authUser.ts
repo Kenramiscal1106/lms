@@ -1,22 +1,9 @@
 export const useUserSession = async () => {
-  const sessionCookie = useCookie("dbSession");
-  if (!sessionCookie.value)
-    return {
-      isLoggedIn: false,
-      userData: null,
-      pending: false,
-      update: null,
-    };
-
   const {
     data: { value: userData },
     error,
     pending: { value: pending },
-    refresh,
-  } = await useFetch("/api/auth", {
-    body: sessionCookie.value,
-    method: "post",
-  });
+  } = await useFetch("/api/auth");
   return {
     isLoggedIn: error.value === null,
     userData,
