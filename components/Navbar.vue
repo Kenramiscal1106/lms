@@ -3,8 +3,6 @@ import { useCurrentUser } from '~~/composables/authUser';
 
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
-
-const router = useRouter()
 const user = await useUserSession()
 const userStore = useCurrentUser()
 userStore.value = user
@@ -21,21 +19,29 @@ const accessCodeAction = (async (e) => {
   if (!postReq.ok) return
   window.location.reload()
 }) satisfies EventListener
+
+const logOut = async () => {
+  await fetch('/api/logout');
+  window.location.replace('/login')
+}
 </script>
 <template>
-  <nav>
+  <nav class="flex items-center px-8 py-2 bg-neutral-900 fixed w-full top-0 left-0">
 
     <div>
       <h2>
         <NuxtLink to="/">LCCT</NuxtLink>
       </h2>
     </div>
-    <div>
-      <ul class="nav-sublinks">
+    <div v-show="user.isLoggedIn">
+      <ul class="mr-2">
         <li>
           <button @click="coursesOpen = !coursesOpen">Courses</button>
         </li>
       </ul>
+    </div>
+    <div class="ml-auto" v-show="user.isLoggedIn">
+      <button @click="logOut">Log out</button>
     </div>
   </nav>
   <div class="course-modal" v-if="coursesOpen">
@@ -60,17 +66,6 @@ ul {
   padding: 0;
 }
 
-nav {
-  display: flex;
-  align-items: center;
-  padding: .5rem 2rem;
-  background: hsl(0, 0%, 10%);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
 nav button {
   background: none;
   border: none;
@@ -92,9 +87,5 @@ nav h2 {
 
 nav>* {
   margin-right: 1.25rem;
-}
-
-.nav-sublinks>* {
-  margin-right: .5rem;
 }
 </style>
