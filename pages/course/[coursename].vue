@@ -1,12 +1,12 @@
 <script setup lang='ts'>
 const route = useRoute()
-if (typeof route.params.coursename !== "string") {
+if (typeof route.params.courseid !== "string") {
   throw createError({
     statusCode: 400,
     statusMessage: "Unresolved error"
   })
 }
-const { data } = await useCourseData(route.params.coursename)
+const { data } = await useCourseData(route.params.courseid)
 const courseStore = useCurrentCourse()
 courseStore.value = data.value
 definePageMeta({
@@ -26,14 +26,14 @@ useHead({
   <div class="main">
     <aside>
       <div class="link-container">
-        <NuxtLink :to="`/course/${route.params.coursename}`"
-          :class="`link ${route.path === `/course/${route.params.coursename}` ? ' open' : ''}`">Materials
+        <NuxtLink :to="`/course/${route.params.courseid}`"
+          :class="`link ${route.path === `/course/${route.params.courseid}` ? ' open' : ''}`">Materials
         </NuxtLink>
-        <NuxtLink :to="`/course/${route.params.coursename}/updates`"
-          :class="`link ${route.path === `/course/${route.params.coursename}/updates` ? ' open' : ''}`">Updates
+        <NuxtLink :to="`/course/${route.params.courseid}/updates`"
+          :class="`link ${route.path === `/course/${route.params.courseid}/updates` ? ' open' : ''}`">Updates
         </NuxtLink>
-        <NuxtLink :to="`/course/${route.params.coursename}/members`"
-          :class="`link ${route.path === `/course/${route.params.coursename}/members` ? ' open' : ''}`">Members
+        <NuxtLink :to="`/course/${route.params.courseid}/members`"
+          :class="`link ${route.path === `/course/${route.params.courseid}/members` ? ' open' : ''}`">Members
         </NuxtLink>
       </div>
     </aside>
