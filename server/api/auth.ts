@@ -2,18 +2,9 @@ import { Users } from "@/utils/models";
 import { CourseSchema, UserSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
-  const cookie = await readBody(event);
-
-  if (!cookie) {
-    throw createError({
-      statusCode: 400,
-      message: "unauthorized",
-    });
-  }
-
   const user = await Users.findOne(
     {
-      userAuthToken: cookie,
+      userAuthToken: event.context.sessionCookie,
     },
     {
       _id: true,
