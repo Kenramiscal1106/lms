@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { FsItem } from '~~/utils/types';
-
+const route = useRoute()
 const { item } = defineProps<{
   item: FsItem
 }>()
@@ -24,5 +24,6 @@ const { item } = defineProps<{
       <ListItems :file-structure="item.children" />
     </div>
   </details>
-  <NuxtLink :to="`${item.type}/${item.to}`" v-else class="block px-4 py-2 my-1">{{ item.name }}</NuxtLink>
+  <NuxtLink :to="`${route.params.courseid}/${item.type}/${item.to}`" v-else class="block px-4 py-2 my-1">{{ item.name }}
+  </NuxtLink>
 </template>
