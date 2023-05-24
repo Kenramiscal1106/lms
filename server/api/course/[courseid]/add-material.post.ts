@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
   if (body.type === "quiz") {
     pushObj[body.type + "es"] = {
       name: body.name,
-      itemId: materialUID,
+      materialId: materialUID,
       published: false,
       deadline: "",
       instructions: "",
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   } else {
     pushObj[body.type + "s"] = {
       name: body.name,
-      itemId: materialUID,
+      materialId: materialUID,
       published: false,
       deadline: "",
     };
