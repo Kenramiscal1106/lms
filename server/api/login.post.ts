@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import { Users } from "@/utils/models";
 import { v4 as uuidv4 } from "uuid";
 
+const WEEK = 60 * 60 * 24;
+
 export default defineEventHandler(async (event) => {
   const { username, password } = await readBody(event);
 
@@ -14,7 +16,7 @@ export default defineEventHandler(async (event) => {
       statusCode: 400,
       data: {
         success: false,
-        message: "incorrect username and password",
+        message: "incorrect username or password",
       },
     });
   }
@@ -29,7 +31,6 @@ export default defineEventHandler(async (event) => {
     });
   }
   const pwCompare = await bcrypt.compare(password, user.passwordHash);
-
   console.log(pwCompare);
   if (!pwCompare) {
     throw createError({
@@ -45,24 +46,17 @@ export default defineEventHandler(async (event) => {
     user.save();
     setCookie(event, "dbSession", user.userAuthToken, {
       path: "/",
-      // server side only cookie so you can't use `document.cookie`
-      httpOnly: false,
-      // only requests from same site can send cookies
-      // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+      httpOnly: true,
       sameSite: "strict",
-      // only sent over HTTPS in production
       secure: process.env.NODE_ENV === "production",
-      // set cookie to expire after a month
-      maxAge: 60 * 60 * 24 * 30,
+      maxAge: WEEK,
     });
   } catch {
-    // setResponseStatus(500);
     throw createError({
       statusCode: 500,
       message: "failed to update session",
     });
   }
-  // setResponseStatus(200, "logged in");
   return {
     success: true,
     message: "successfully logged in",
