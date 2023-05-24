@@ -9,6 +9,8 @@ export const useQuizStore = defineStore<string, Quiz>("quizItems", {
       deadline: "",
       items: [],
       published: false,
+      materialId: "",
+      name: "",
     };
   },
   actions: {
