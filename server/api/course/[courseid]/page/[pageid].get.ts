@@ -12,5 +12,12 @@ export default defineEventHandler(async (event) => {
       message: "not found",
     });
   }
-  return targetCourse.pages[0];
+  const result = targetCourse.pages[0];
+  if (result === null) {
+    throw createError({
+      statusCode: 404,
+      message: "not found",
+    });
+  }
+  return result;
 });
