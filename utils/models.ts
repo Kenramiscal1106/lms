@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type { CourseSchema, UserSchema } from "./types";
+import type { CourseSchema, UserSchema, Assignment } from "./types";
 
 const { NUXT_MONGO_URL } = process.env;
 
@@ -9,8 +9,31 @@ if (typeof NUXT_MONGO_URL === "undefined") {
 mongoose.connect(NUXT_MONGO_URL, {
   dbName: "lms",
 });
-// connectToDB();
 mongoose.set("strictQuery", false);
+
+/* const assignmentSchema = new mongoose.Schema<Assignment>({
+  deadline: {
+    type: String,
+    required: true,
+  },
+  instructions: {
+    type: String,
+    required: true,
+  },
+  materialId: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  published: {
+    type: Boolean,
+    default: false,
+  },
+}); */
+
 const courses = new mongoose.Schema<CourseSchema>({
   name: {
     type: String,

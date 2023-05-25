@@ -4,10 +4,10 @@ export type CourseSchema = {
   _id: Types.ObjectId;
   name: string;
   assignments: any[];
-  quizes: any[];
-  forums: any[];
-  pages: any[];
-  posts: any[];
+  quizes: Quiz[];
+  forums: Forum[];
+  pages: Page[];
+  posts: Post[];
   members: Types.ObjectId[];
   folderStructure: FsItem[];
 };
@@ -75,9 +75,9 @@ export type Post = {
   author: Types.ObjectId;
   content: string;
 };
-export type Forums = {
+export type Forum = {
   query: string;
 } & CourseMaterial;
-export type Pages = {
+export type Page = {
   text: string;
 } & CourseMaterial;
