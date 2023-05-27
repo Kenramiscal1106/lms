@@ -26,7 +26,7 @@ const logOut = async () => {
 }
 </script>
 <template>
-  <nav class="flex items-center px-8 py-2 bg-neutral-900 fixed w-full top-0 left-0">
+  <nav class="flex items-center px-8 py-3 bg-neutral-900 fixed w-full top-0 left-0">
 
     <div>
       <h2>
@@ -44,16 +44,19 @@ const logOut = async () => {
       <button @click="logOut">Log out</button>
     </div>
   </nav>
-  <div class="course-modal" v-if="coursesOpen">
-    <button @click="accessCodeFormOpen = !accessCodeFormOpen">Join Course</button>
-    <form v-if="accessCodeFormOpen" @submit.prevent="accessCodeAction">
-      <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
-      <button type="submit">Submit</button>
-    </form>
-    <div v-if="userStore !== null && userStore.userData && userStore.userData.courses.length !== 0">
-      Your courses
-      <div v-for="course in userStore.userData.courses">
-        <NuxtLink :to="`/course/${course._id}`">{{ course.name }}</NuxtLink>
+  <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-30" v-if="coursesOpen"
+    @click.self="coursesOpen = !coursesOpen">
+    <div class="max-w-2xl mx-auto my-8 bg-white px-4 py-1">
+      <button @click="accessCodeFormOpen = !accessCodeFormOpen">Join Course</button>
+      <form v-if="accessCodeFormOpen" @submit.prevent="accessCodeAction">
+        <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
+        <button type="submit">Submit</button>
+      </form>
+      <div v-if="user.userData && user.userData.courses.length !== 0">
+        Your courses
+        <div v-for="course in user.userData.courses">
+          <NuxtLink :to="`/course/${course._id}`" @click="coursesOpen = false">{{ course.name }}</NuxtLink>
+        </div>
       </div>
     </div>
   </div>
