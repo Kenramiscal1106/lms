@@ -16,9 +16,14 @@ const modal = reactive<{
 
   <ListItems v-if="materials && materials.folderStructure.length !== 0" :fileStructure="materials.folderStructure" />
   <div v-show="modal.open"
-    class="bg-black bg-opacity-30 absolute w-screen h-screen top-0 left-0 flex justify-center items-center">
-    <button @click="modal.open = false">Close modal</button>
-    <CreateMaterial v-if="modal.type === 'material'" :route="route" />
-    <CreateFolder v-if="modal.type === 'folder'" :route="route" />
+    class="bg-black bg-opacity-30 absolute w-full h-full top-0 left-0 flex items-center justify-center"
+    @click.self="modal.open = false">
+    <div class="max-w-md h-max bg-white px-4 py-1">
+      <div>
+        <button @click="modal.open = false">Close modal</button>
+      </div>
+      <CreateMaterial v-if="modal.type === 'material'" :route="route" />
+      <CreateFolder v-if="modal.type === 'folder'" :route="route" />
+    </div>
   </div>
 </template>
