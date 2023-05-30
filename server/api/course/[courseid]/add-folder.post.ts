@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody(event);
 
-  targetCourse.update(
+  targetCourse.updateOne(
     {
       $push: {
         folderStructure: {
@@ -38,10 +38,7 @@ export default defineEventHandler(async (event) => {
         },
       },
     },
-    {},
-    () => {
-      console.log("triggered push");
-    }
+    {}
   );
   return {
     success: undefined,
