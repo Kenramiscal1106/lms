@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const [pageDoc] = targetCourse.pages.filter(
     (page) => page.materialId === event.context.params?.pageid
   );
-  if (pageDoc === null) {
+  if (!pageDoc) {
     throw createError({
       statusCode: 404,
       message: "not found",
