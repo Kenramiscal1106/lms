@@ -1,26 +1,17 @@
-import { Users } from "@/utils/models";
+import { Users, Courses } from "@/utils/models";
 import { CourseSchema } from "~~/utils/types";
 
 export default defineEventHandler(async (event) => {
-  const user = await Users.findOne(
+  const courses = await Courses.find(
+    {},
     {
-      userAuthToken: event.context.sessionCookie,
-    },
-    {
-      courses: true,
-      username: true,
+      name: true,
     }
-  ).populate<{ courses: Pick<CourseSchema, "name" | "_id">[] }>("courses", {
-    name: true,
-  });
-  if (!user) {
-    throw createError({
-      statusCode: 400,
-      message: "session expired",
-    });
-  }
+  )
+    .where("members")
+    .in([event.context.userId]);
 
   return {
-    courses: user.courses,
+    courses,
   };
 });
