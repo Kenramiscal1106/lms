@@ -13,8 +13,6 @@ export default defineEventHandler(async (event) => {
   ).populate<{ courses: Pick<CourseSchema, "name" | "_id">[] }>("courses", {
     name: true,
   });
-
-  // console.log(user);
   if (!user) {
     throw createError({
       statusCode: 400,
