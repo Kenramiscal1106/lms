@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type { CourseSchema, UserSchema, Assignment } from "./types";
+import type { CourseSchema, UserSchema, Post } from "./types";
 
 const { NUXT_MONGO_URL } = process.env;
 
@@ -11,28 +11,24 @@ mongoose.connect(NUXT_MONGO_URL, {
 });
 mongoose.set("strictQuery", false);
 
-/* const assignmentSchema = new mongoose.Schema<Assignment>({
-  deadline: {
+const posts = new mongoose.Schema<Post>({
+  author: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "user",
+  },
+  content: {
     type: String,
-    required: true,
+    default: "",
   },
-  instructions: {
-    type: String,
-    required: true,
-  },
-  materialId: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  published: {
-    type: Boolean,
-    default: false,
-  },
-}); */
+  comments: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "posts",
+    },
+  ],
+  courseId: {},
+});
+export const Posts = mongoose.model<Post>("posts", posts);
 
 const courses = new mongoose.Schema<CourseSchema>({
   name: {
@@ -43,7 +39,12 @@ const courses = new mongoose.Schema<CourseSchema>({
   quizes: [],
   forums: [],
   pages: [],
-  posts: [],
+  posts: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "posts",
+    },
+  ],
   members: [
     {
       type: mongoose.SchemaTypes.ObjectId,
