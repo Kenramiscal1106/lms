@@ -23,14 +23,31 @@ export default defineEventHandler(async (event) => {
     })[];
   }>({
     path: "posts",
-    populate: {
-      path: "author",
-      select: {
-        firstName: true,
-        lastName: true,
-        username: true,
+    populate: [
+      {
+        path: "comments",
+        select: {
+          author: true,
+          content: true,
+        },
+        populate: {
+          path: "author",
+          select: {
+            firstName: true,
+            lastName: true,
+            username: true,
+          },
+        },
       },
-    },
+      {
+        path: "author",
+        select: {
+          firstName: true,
+          lastName: true,
+          username: true,
+        },
+      },
+    ],
     options,
   });
   if (!targetCourse) {
