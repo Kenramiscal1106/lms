@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   if (user) {
     return {
-      success: true,
+      success: false,
       message: "user already set",
     };
   }
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
       statusCode: 500,
       data: {
         success: false,
-        message: "database error",
+        message: "user failed to register",
       },
     });
   }
