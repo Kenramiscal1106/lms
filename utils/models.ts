@@ -15,6 +15,7 @@ const posts = new mongoose.Schema<Post>({
   author: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "user",
+    required: true,
   },
   content: {
     type: String,
@@ -26,7 +27,15 @@ const posts = new mongoose.Schema<Post>({
       ref: "posts",
     },
   ],
-  courseId: {},
+  courseId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+  },
+  isComment: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 export const Posts = mongoose.model<Post>("posts", posts);
 

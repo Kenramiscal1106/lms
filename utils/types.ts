@@ -75,8 +75,15 @@ export type Post = {
   courseId: Types.ObjectId;
   author: Types.ObjectId;
   content: string;
-  comments: Post[];
-};
+} & (
+  | {
+      comments: Post[];
+      isComment: false;
+    }
+  | {
+      isComment: true;
+    }
+);
 export type Forum = {
   query: string;
 } & CourseMaterial;
