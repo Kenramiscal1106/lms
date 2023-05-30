@@ -72,8 +72,10 @@ export type Assignment = {
 } & CourseMaterial;
 
 export type Post = {
+  courseId: Types.ObjectId;
   author: Types.ObjectId;
   content: string;
+  comments: Post[];
 };
 export type Forum = {
   query: string;
