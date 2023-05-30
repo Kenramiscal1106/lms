@@ -46,7 +46,6 @@ export default defineEventHandler(async (event) => {
       deadline: "",
     };
   }
-  console.log(pushObj);
   switch (body.type) {
     case "assignment": {
       pushObj.assignments.instructions = "";

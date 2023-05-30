@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
       },
     }),
   ]);
-  console.log("update done");
   return {
     success: true,
   };

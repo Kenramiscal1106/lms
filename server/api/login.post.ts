@@ -31,7 +31,6 @@ export default defineEventHandler(async (event) => {
     });
   }
   const pwCompare = await bcrypt.compare(password, user.passwordHash);
-  console.log(pwCompare);
   if (!pwCompare) {
     throw createError({
       statusCode: 400,
