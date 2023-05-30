@@ -1,6 +1,5 @@
 export default defineEventHandler((event) => {
   const sessionCookie = getCookie(event, "dbSession");
-  // console.log(event.path);
   if (
     !sessionCookie &&
     event.path !== "/favicon.ico" &&
