@@ -7,19 +7,6 @@ const user = await useUserSession()
 const userStore = useCurrentUser()
 userStore.value = user
 
-const accessCodeAction = (async (e) => {
-  const formTarget = e.currentTarget as HTMLFormElement
-  const formData = new FormData(formTarget)
-  const accessCode = formData.get("access-code")
-
-  const postReq = await fetch("/api/access-code", {
-    method: "POST",
-    body: JSON.stringify({ accessCode })
-  })
-  if (!postReq.ok) return
-  window.location.reload()
-}) satisfies EventListener
-
 const logOut = async () => {
   await fetch('/api/logout');
   window.location.replace('/login')
@@ -46,19 +33,7 @@ const logOut = async () => {
   </nav>
   <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-30" v-if="coursesOpen"
     @click.self="coursesOpen = !coursesOpen">
-    <div class="max-w-2xl mx-auto my-8 bg-white px-4 py-1">
-      <button @click="accessCodeFormOpen = !accessCodeFormOpen">Join Course</button>
-      <form v-if="accessCodeFormOpen" @submit.prevent="accessCodeAction">
-        <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
-        <button type="submit">Submit</button>
-      </form>
-      <div v-if="user.userData && user.userData.courses.length !== 0">
-        Your courses
-        <div v-for="course in user.userData.courses">
-          <NuxtLink :to="`/course/${course._id}`" @click="coursesOpen = false">{{ course.name }}</NuxtLink>
-        </div>
-      </div>
-    </div>
+    <CourseModal :accessCodeFormOpen="accessCodeFormOpen" :coursesOpen="coursesOpen" />
   </div>
 </template>
 <style scoped>
