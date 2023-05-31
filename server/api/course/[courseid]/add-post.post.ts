@@ -12,16 +12,22 @@ export default defineEventHandler(async (event) => {
     courseId: new mongoose.Types.ObjectId(event.context.params?.courseid),
     isComment: false,
   });
-  const targetCourse = Courses.findByIdAndUpdate(
-    event.context.params?.courseid,
-    {
-      $push: {
-        posts: post._id,
-      },
-    }
-  ).exec();
+  try {
+    Promise.allSettled([
+      Courses.findByIdAndUpdate(event.context.params?.courseid, {
+        $push: {
+          posts: post._id,
+        },
+      }).exec(),
 
-  post.save();
+      post.save(),
+    ]);
+  } catch {
+    throw createError({
+      statusCode: 500,
+      message: "unable to write to database",
+    });
+  }
   return {
     success: true,
   };
