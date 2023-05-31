@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import { useCurrentUser } from '~~/composables/authUser';
 
+const route = useRoute();
 const coursesOpen = ref(false);
 const accessCodeFormOpen = ref(false);
 const user = await useUserSession()
@@ -11,6 +12,13 @@ const logOut = async () => {
   await fetch('/api/logout');
   window.location.replace('/login')
 }
+
+watch(route, () => {
+  if (!coursesOpen.value) {
+    return
+  }
+  coursesOpen.value = false
+})
 </script>
 <template>
   <nav class="flex items-center px-8 py-3 bg-neutral-900 fixed w-full top-0 left-0">
@@ -23,7 +31,7 @@ const logOut = async () => {
     <div v-show="user.isLoggedIn">
       <ul class="mr-2">
         <li>
-          <button @click="coursesOpen = !coursesOpen">Courses</button>
+          <NavbarItem @click="coursesOpen = true">Courses</Navbaritem>
         </li>
       </ul>
     </div>
@@ -42,16 +50,6 @@ ul {
   display: flex;
   /* align-items:center; */
   padding: 0;
-}
-
-nav button {
-  background: none;
-  border: none;
-  outline: none;
-  padding: 0;
-  color: white;
-  font-family: inherit;
-  font-size: inherit;
 }
 
 nav a {
