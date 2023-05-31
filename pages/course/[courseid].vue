@@ -24,20 +24,7 @@ useHead({
 </script>
 <template>
   <div class="main">
-    <aside>
-      <h1>{{ data && data.name }}</h1>
-      <div class="link-container">
-        <NuxtLink :to="`/course/${route.params.courseid}`"
-          :class="`link ${route.path === `/course/${route.params.courseid}` ? ' open' : ''}`">Materials
-        </NuxtLink>
-        <NuxtLink :to="`/course/${route.params.courseid}/updates`"
-          :class="`link ${route.path === `/course/${route.params.courseid}/updates` ? ' open' : ''}`">Updates
-        </NuxtLink>
-        <NuxtLink :to="`/course/${route.params.courseid}/members`"
-          :class="`link ${route.path === `/course/${route.params.courseid}/members` ? ' open' : ''}`">Members
-        </NuxtLink>
-      </div>
-    </aside>
+    <CourseSidebar :courseName="data ? data.name : ''" />
     <main>
       <NuxtPage />
     </main>
