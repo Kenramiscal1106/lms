@@ -1,4 +1,4 @@
-import { Users, Courses } from "~/utils/models";
+import { Courses } from "~/utils/models";
 import { v4 as randomUUID } from "uuid";
 
 export default defineEventHandler(async (event) => {
@@ -6,10 +6,7 @@ export default defineEventHandler(async (event) => {
   const targetCourse = await Courses.findById(event.context.params?.courseid, {
     members: true,
   });
-  const user = await Users.findOne({
-    userAuthToken: event.context.sessionCookie,
-  });
-  if (!targetCourse || user === null) {
+  if (!targetCourse) {
     throw createError({
       statusCode: 400,
       message: "user is null/targetCourse not found",
@@ -18,7 +15,7 @@ export default defineEventHandler(async (event) => {
 
   if (
     typeof targetCourse.members.find(
-      (member) => member.toString() === user._id.toString()
+      (member) => member.toString() === event.context.userId.toString()
     ) === "undefined"
   ) {
     throw createError({
