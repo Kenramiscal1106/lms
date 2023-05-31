@@ -6,10 +6,10 @@ export default defineEventHandler(async (event) => {
   const { limit, skip } = getQuery(event);
   let options: QueryOptions = {};
 
-  if (skip && !Array.isArray(skip)) {
+  if (skip && typeof skip === "string") {
     options.skip = parseInt(skip);
   }
-  if (limit && !Array.isArray(limit)) {
+  if (limit && typeof limit === "string") {
     options.limit = parseInt(limit);
   }
   const targetCourse = await Courses.findById(event.context.params?.courseid, {
