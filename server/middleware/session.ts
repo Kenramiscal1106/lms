@@ -13,5 +13,4 @@ export default defineEventHandler((event) => {
     });
   }
   event.context.sessionCookie = sessionCookie;
-  console.log("cookie middleware runs");
 });
