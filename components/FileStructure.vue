@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
-const { data: materials } = await useFetch(`/api/course/${route.params.courseid}/materials`);
+const { data: materials } = await useFetch(`/api/course/${route.params.courseid}/materials`, {
+  key: "materials"
+});
 const modal = reactive<{
   type: "material" | "folder",
   open: boolean
@@ -11,8 +13,10 @@ const modal = reactive<{
 </script>
 
 <template>
-  <button @click="modal.open = true; modal.type = 'material'">Add materials</button>
-  <button @click="modal.open = true; modal.type = 'folder'">Add folder</button>
+  <div class="flex gap-3">
+    <Button variant="outline" @click="modal.open = true; modal.type = 'material'">Add materials</Button>
+    <Button variant="outline" @click="modal.open = true; modal.type = 'folder'">Add folder</Button>
+  </div>
 
   <ListItems v-if="materials && materials.folderStructure.length !== 0" :fileStructure="materials.folderStructure" />
   <div v-show="modal.open"
