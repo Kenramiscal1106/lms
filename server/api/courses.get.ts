@@ -1,5 +1,4 @@
-import { Users, Courses } from "@/utils/models";
-import { CourseSchema } from "~~/utils/types";
+import { Courses } from "@/utils/models";
 
 export default defineEventHandler(async (event) => {
   const courses = await Courses.find(
