@@ -3,16 +3,16 @@ const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
 const formAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
   const formData = Object.fromEntries(new FormData(formTarget).entries())
-  const postReq = await fetch(`/api/course/${route.params.courseid}/add-folder`, {
+  const postReq = await $fetch(`/api/course/${route.params.courseid}/add-folder`, {
     method: "POST",
-    body: JSON.stringify(formData)
+    body: JSON.stringify(formData),
+    onResponse({ response }) {
+      if (response.ok) {
+        console.log("update successfully")
+        refreshNuxtData("materials")
+      }
+    }
   })
-
-  if (!postReq.ok) {
-    console.log("bad request :(")
-    return
-  }
-  console.log("submitted successfully")
 }) satisfies EventListener
 
 </script>
