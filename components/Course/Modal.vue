@@ -30,8 +30,8 @@ const { data, pending } = await useLazyFetch("/api/courses")
       Your courses
       <div v-for="course in data.courses">
         <NuxtLink :to="`/course/${course._id}`"
-          v-if="(typeof course === 'object' && course && 'name' in course && '_id' in course)"
-          @click="coursesOpen = !coursesOpen">{{ course.name }}</NuxtLink>
+          v-if="(typeof course === 'object' && course && 'name' in course && '_id' in course)">{{
+            course.name }}</NuxtLink>
       </div>
     </div>
   </div>
