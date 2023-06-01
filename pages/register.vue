@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod"
 definePageMeta({
-  // middleware: ["auth"]
+  middleware: "logging"
 })
 const passwordRef = ref("")
 const confirmPasswordRef = ref("")
@@ -58,31 +58,26 @@ useHead({
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
+  <div class="m-auto max-w-sm bg-white py-5 px-3 rounded-md">
     <h1>Register to LMS</h1>
-    <label for="firstname">First name</label><br>
-    <input type="text" name="firstname" id="firstname"> <br>
-    <label for="lastname">Last name</label><br>
-    <input type="text" name="lastname" id="lastname"> <br>
-    <label for="username">Username</label><br>
-    <input type="text" name="username" id="username">
-    <br>
-    <label for="password">Password</label><br>
-    <input type="password" name="password" id="password" v-model="passwordRef"><br>
-    <label for="confirm-password">Confirm Password</label><br>
-    <input type="password" name="password" id="confirm-password" v-model="confirmPasswordRef" /><br>
-    <p>Already have an account? Go to <NuxtLink to="/login">Login</NuxtLink>
-    </p>
-    <div v-if="formResult !== null && !formResult.success">
-      {{ formResult.message }}
-    </div>
-    <button type="submit">Submit</button>
-  </form>
+    <form @submit.prevent="handleSubmit">
+      <label for="firstname">First name</label><br>
+      <input type="text" name="firstname" id="firstname"> <br>
+      <label for="lastname">Last name</label><br>
+      <input type="text" name="lastname" id="lastname"> <br>
+      <label for="username">Username</label><br>
+      <input type="text" name="username" id="username">
+      <br>
+      <label for="password">Password</label><br>
+      <input type="password" name="password" id="password" v-model="passwordRef"><br>
+      <label for="confirm-password">Confirm Password</label><br>
+      <input type="password" name="password" id="confirm-password" v-model="confirmPasswordRef" /><br>
+      <p>Already have an account? Go to <NuxtLink to="/login">Login</NuxtLink>
+      </p>
+      <Button type="submit" variant="fill">Submit</Button>
+      <div v-if="formResult !== null && !formResult.success" class="text-red-700">
+        {{ formResult.message }}
+      </div>
+    </form>
+  </div>
 </template>
-
-<style scoped>
-input {
-  border: 1px solid black;
-  padding: .25rem .5rem;
-}
-</style>
