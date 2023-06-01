@@ -23,43 +23,12 @@ useHead({
 })
 </script>
 <template>
-  <div class="main">
+  <div class="flex max-w-4xl m-auto gap-1">
     <CourseSidebar :courseName="data ? data.name : ''" />
-    <main>
+    <main class="flex-1 bg-white px-4 py-2">
       <NuxtPage />
     </main>
   </div>
 </template>
-<style scoped>
-.link:not(.open) {
-  color: rgb(95, 95, 95);
-  text-decoration: none;
-}
 
-.link:hover {
-  color: black;
-}
-
-.open {
-  color: black;
-}
-
-.link-container {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.main {
-  display: flex;
-  max-width: 70rem;
-  margin: auto;
-}
-
-aside {
-  flex: 0 1 12rem;
-}
-
-main {
-  flex: 1 1 0;
-}
-</style>
+<style scoped></style>
