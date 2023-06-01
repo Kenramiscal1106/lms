@@ -13,8 +13,4 @@ useHead({
   </div>
 </template>
 
-<style>
-body {
-  margin-top: 5rem;
-}
-</style>
+<style></style>
