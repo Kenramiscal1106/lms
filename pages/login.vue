@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import z from "zod"
 definePageMeta({
-  // middleware: "auth"
+  middleware: ["logging"]
 })
 const formResult = ref<{
   success: boolean,
   type: "incorrect" | "validation",
   message: string
 } | null>(null)
-
+const route = useRoute();
 const handleSubmit = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
@@ -52,9 +52,9 @@ const handleSubmit = (async (e) => {
     return
   }
   const url = new URLSearchParams(window.location.search)
-
-  // alert("successfully logged in")
-  window.location.pathname = "/"
+  navigateTo(typeof route.query.next !== "undefined" ? decodeURIComponent(route.query.next as string) : "/", {
+    external: true,
+  })
 }) satisfies EventListener
 useHead({
   title: "Login | LMS"
@@ -62,23 +62,18 @@ useHead({
 </script>
 
 <template>
-  <h1>Login to LMS</h1>
-  <form @submit.prevent="handleSubmit">
-    <label for="username">Username</label><br>
-    <input type="text" name="username" id="username"> <br>
-    <label for="password">Password</label><br>
-    <input type="password" name="password" id="password"> <br>
-    <p>No Account yet? <NuxtLink to="/register">Register</NuxtLink>
-    </p>
-    <button type="submit">Submit</button>
-    <div v-if="formResult !== null && !formResult.success">
-      {{ formResult.message }}</div>
-  </form>
+  <div class="m-auto max-w-sm bg-white py-5 px-3 rounded-md">
+    <h1>Login to LMS</h1>
+    <form @submit.prevent="handleSubmit">
+      <label for="username">Username</label><br>
+      <input type="text" name="username" id="username"> <br>
+      <label for="password">Password</label><br>
+      <input type="password" name="password" id="password"> <br>
+      <p>No Account yet? <NuxtLink to="/register">Register</NuxtLink>
+      </p>
+      <Button type="submit" variant="fill">Submit</Button>
+      <div v-if="formResult !== null && !formResult.success" class="text-red-700">
+        {{ formResult.message }}</div>
+    </form>
+  </div>
 </template>
-
-<style scoped>
-input {
-  border: 1px solid black;
-  padding: .25rem .5rem;
-}
-</style>
