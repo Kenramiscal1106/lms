@@ -36,7 +36,7 @@ watch(route, () => {
       </ul>
     </div>
     <div class="ml-auto" v-show="user.isLoggedIn">
-      <button @click="logOut">Log out</button>
+      <NavbarItem @click="logOut">Log out</NavbarItem>
     </div>
   </nav>
   <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-30" v-if="coursesOpen"
