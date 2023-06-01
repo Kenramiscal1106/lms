@@ -24,9 +24,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event);
-
-  targetCourse.updateOne(
-    {
+  Promise.allSettled([
+    targetCourse.updateOne({
       $push: {
         folderStructure: {
           name: body.name,
@@ -34,10 +33,10 @@ export default defineEventHandler(async (event) => {
           children: [],
         },
       },
-    },
-    {}
-  );
+    }),
+  ]);
   return {
-    success: undefined,
+    success: true,
+    message: "updated successfully",
   };
 });
