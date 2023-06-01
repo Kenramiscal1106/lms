@@ -1,22 +1,18 @@
 <script setup lang='ts'>
-const route = useRoute();
 const { courseName } = defineProps<{
   courseName: string
 }>()
 </script>
 <template>
-  <aside>
+  <aside class="basis-48 shrink-0 py-2">
     <h1>{{ courseName }}</h1>
     <div class="flex flex-col">
-      <NuxtLink :to="`/course/${route.params.courseid}`"
-        :class="`link ${route.path === `/course/${route.params.courseid}` ? ' open' : ''}`">Materials
-      </NuxtLink>
-      <NuxtLink :to="`/course/${route.params.courseid}/updates`"
-        :class="`link ${route.path === `/course/${route.params.courseid}/updates` ? ' open' : ''}`">Updates
-      </NuxtLink>
-      <NuxtLink :to="`/course/${route.params.courseid}/members`"
-        :class="`link ${route.path === `/course/${route.params.courseid}/members` ? ' open' : ''}`">Members
-      </NuxtLink>
+      <CourseSidebarNav to="materials">Materials
+      </CourseSidebarNav>
+      <CourseSidebarNav to="updates">Updates
+      </CourseSidebarNav>
+      <CourseSidebarNav to="members">Members
+      </CourseSidebarNav>
     </div>
   </aside>
 </template>
