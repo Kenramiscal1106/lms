@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --nav-margin:4.5rem;
+}
+
 @layer base {
   * {
       font-family: "Inter";
@@ -21,14 +25,26 @@
     h4,
     h5,
     h6 {
-      @apply font-bold;
+      @apply font-bold my-3;
     }
   
+    p {
+      @apply my-3;
+    }
     ul {
       @apply list-disc;
     }
   
     body {
-      margin-top: 5rem;
+      margin-top: var(--nav-margin);
+      background:hsl(0, 0%, 95%);
+      min-height: calc(100vh - var(--nav-margin));
+    }
+    form :is(input[type="text"], input[type="password"]) {
+      @apply w-full border-neutral-200 border-2 px-3 py-2 rounded-md focus:outline-none focus:border-neutral-500;
+    }
+    a {
+      @apply decoration-current text-neutral-500 hover:text-black;
+      text-decoration:underline;
     }
 }
