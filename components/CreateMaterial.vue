@@ -3,7 +3,7 @@ const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
 const formAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
   const formData = Object.fromEntries(new FormData(formTarget).entries())
-  const postReq = await $fetch(`/api/course/${route.params.courseid}/add-material`, {
+  await $fetch(`/api/course/${route.params.courseid}/add-material`, {
     method: "POST",
     body: JSON.stringify(formData),
     async onResponse({ response }) {
