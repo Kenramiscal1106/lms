@@ -27,9 +27,20 @@ const posts = new mongoose.Schema<Post>({
       ref: "posts",
     },
   ],
-  courseId: {
+  course: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
+    ref: "courses",
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    required: true,
+    default: new Date(),
   },
   isComment: {
     type: Boolean,
