@@ -6,10 +6,10 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   const post = new Posts({
-    author: new mongoose.Types.ObjectId(body.authorId),
+    author: event.context.userId,
     content: body.content,
     comments: [],
-    courseId: new mongoose.Types.ObjectId(event.context.params?.courseid),
+    course: new mongoose.Types.ObjectId(event.context.params?.courseid),
     isComment: false,
   });
   try {
