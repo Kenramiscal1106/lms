@@ -72,8 +72,10 @@ export type Assignment = {
 } & CourseMaterial;
 
 export type Post = {
-  courseId: Types.ObjectId;
+  course: Types.ObjectId;
   author: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
   content: string;
 } & (
   | {
