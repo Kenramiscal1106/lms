@@ -1,7 +1,11 @@
 import { Users } from "~/utils/models";
 
 export default defineEventHandler(async (event) => {
-  if (event.path === "/api/courses" || event.path.startsWith("/api/course")) {
+  if (
+    event.path === "/api/courses" ||
+    event.path.startsWith("/api/course") ||
+    event.path === "/api/home"
+  ) {
     const user = await Users.findOne({
       userAuthToken: event.context.sessionCookie,
     });
