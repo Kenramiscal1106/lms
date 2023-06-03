@@ -52,7 +52,7 @@
       background:hsl(0, 0%, 95%);
       min-height: calc(100vh - var(--nav-margin));
     }
-    form :is(input[type="text"], input[type="password"]) {
+    form :is(input[type="text"], input[type="password"], textarea) {
       @apply w-full border-neutral-200 border-2 px-3 py-2 rounded-md focus:outline-none focus:border-neutral-500;
     }
     a {
