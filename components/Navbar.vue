@@ -3,7 +3,6 @@ import { useCurrentUser } from '~~/composables/authUser';
 
 const route = useRoute();
 const coursesOpen = ref(false);
-const accessCodeFormOpen = ref(false);
 const user = await useUserSession()
 const userStore = useCurrentUser()
 userStore.value = user
@@ -41,7 +40,7 @@ watch(route, () => {
   </nav>
   <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-30" v-if="coursesOpen"
     @click.self="coursesOpen = !coursesOpen">
-    <CourseModal :accessCodeFormOpen="accessCodeFormOpen" :coursesOpen="coursesOpen" />
+    <CourseModal />
   </div>
 </template>
 <style scoped>
