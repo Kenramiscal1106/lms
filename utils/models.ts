@@ -33,14 +33,14 @@ const posts = new mongoose.Schema<Post>({
     ref: "courses",
   },
   createdAt: {
-    type: Date,
+    type: String,
     required: true,
-    default: new Date(),
+    default: new Date().toISOString(),
   },
   updatedAt: {
-    type: Date,
+    type: String,
     required: true,
-    default: new Date(),
+    default: new Date().toISOString(),
   },
   isComment: {
     type: Boolean,
