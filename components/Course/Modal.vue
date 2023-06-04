@@ -1,32 +1,38 @@
 <script lang="ts" setup>
-const { accessCodeFormOpen, coursesOpen } = defineProps<{
-  accessCodeFormOpen: boolean,
-  coursesOpen: boolean
-}>()
+const accessCodeFormOpen = ref<boolean>(false)
 
 const accessCodeAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement
   const formData = new FormData(formTarget)
   const accessCode = formData.get("access-code")
-
-  const postReq = await fetch("/api/access-code", {
+  await $fetch("/api/access-code", {
     method: "POST",
-    body: JSON.stringify({ accessCode })
+    body: JSON.stringify({ accessCode }),
+    onResponse: ({ response }) => {
+      if (!response.ok) return
+      refreshNuxtData("courses")
+    }
   })
-  if (!postReq.ok) return
-  window.location.reload()
 }) satisfies EventListener
 
-const { data, pending } = await useLazyFetch("/api/courses")
+const { data, pending, error } = await useLazyFetch("/api/courses", {
+  key: "courses"
+})
 </script>
 <template>
   <div class="max-w-2xl mx-auto my-8 bg-white px-4 py-1">
-    <button @click="accessCodeFormOpen = !accessCodeFormOpen">Join Course</button>
+    <Button @click="accessCodeFormOpen = !accessCodeFormOpen" variant="fill">Join Course</Button>
     <form v-if="accessCodeFormOpen" @submit.prevent="accessCodeAction">
       <input type="text" id="access-code" placeholder="Enter Access code" name="access-code" />
-      <button type="submit">Submit</button>
+      <Button variant="fill" type="submit">Submit</Button>
     </form>
-    <div v-if="!pending && data && data.courses.length !== 0">
+    <div v-if="pending">
+      Loading...
+    </div>
+    <div v-else-if="error">
+      {{ error.message }}
+    </div>
+    <div v-else-if="data && data.courses.length !== 0">
       Your courses
       <div v-for="course in data.courses">
         <NuxtLink :to="`/course/${course._id}`"
