@@ -1,6 +1,6 @@
 // import { QuizItemSchema } from "~~/utils/types";
 import { defineStore } from "pinia";
-import { Quiz, QuizItem } from "~~/utils/types";
+import { Quiz, QuizItem, ToastData } from "~~/utils/types";
 
 export const useQuizStore = defineStore<string, Quiz>("quizItems", {
   state() {
@@ -23,6 +23,49 @@ export const useQuizStore = defineStore<string, Quiz>("quizItems", {
     },
     updateinstructions(newInstruction: string) {
       this.instructions = newInstruction;
+    },
+  },
+});
+
+export const useToastStore = defineStore<
+  string,
+  { toasts: ToastData[] },
+  {},
+  {
+    addToast: (item: ToastData) => void;
+  }
+>("toasts", {
+  state() {
+    return {
+      toasts: [
+        {
+          success: true,
+          message: "You successfadfuasdg;asdlg asd",
+          type: "error",
+        },
+        {
+          success: true,
+          message: "You successfadfuasdg;asdlg asd",
+          type: "error",
+        },
+        {
+          success: true,
+          message: "You successfadfuasdg;asdlg asd",
+          type: "error",
+        },
+
+        {
+          success: true,
+          message:
+            "You successfadfuasdg;asdlg asdfasdfasdg asga sdg asdg asdg asd gasd g asdg asdg asdg asd gasd g asd gasd gasd g asdg asd gs dg asdg a sdg asd ga sd",
+          type: "error",
+        },
+      ],
+    };
+  },
+  actions: {
+    addToast(item) {
+      this.toasts.push(item);
     },
   },
 });
