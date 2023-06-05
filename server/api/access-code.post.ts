@@ -25,13 +25,13 @@ export default defineEventHandler(async (event) => {
         userAuthToken: event.context.sessionCookie,
       },
       {
-        $push: {
+        $addToSet: {
           courses: accessCode,
         },
       }
     ),
     Courses.findByIdAndUpdate(accessCode, {
-      $push: {
+      $addToSet: {
         members: user && user._id,
       },
     }),
