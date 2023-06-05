@@ -15,11 +15,9 @@ const { data, pending, error } = await useLazyFetch(`/api/course/${route.params.
       {{ error.message }}
     </h4>
   </div>
-  <div v-else-if="data">
-    <div v-for="post in data.posts">
-      <h4>{{ post.author.firstName + post.author.lastName }}</h4>
-      <div>{{ post.content }}</div>
-    </div>
+  <Post v-for="post in (data.posts)" :post="(post as any)" v-else-if="data && data.posts.length !== 0" />
+  <div v-else>
+    There are no posts.
   </div>
 </template>
 <style scoped></style>
