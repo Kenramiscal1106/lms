@@ -56,7 +56,6 @@
       @apply w-full border-neutral-200 border-2 px-3 py-2 rounded-md focus:outline-none focus:border-neutral-500;
     }
     a {
-      @apply decoration-current text-neutral-500 hover:text-black;
-      text-decoration:underline;
+      @apply decoration-current text-neutral-500 hover:text-black underline cursor-pointer;
     }
 }
