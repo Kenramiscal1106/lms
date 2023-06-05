@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>()
-const { data: materials } = await useFetch(`/api/course/${route.params.courseid}/materials`, {
+const { data: materials, pending, error } = await useLazyFetch(`/api/course/${route.params.courseid}/materials`, {
   key: "materials"
 });
 const modal = reactive<{
@@ -18,7 +18,16 @@ const modal = reactive<{
     <Button variant="outline" @click="modal.open = true; modal.type = 'folder'">Add folder</Button>
   </div>
 
-  <ListItems v-if="materials && materials.folderStructure.length !== 0" :fileStructure="materials.folderStructure" />
+
+  <div v-if="pending">
+    <h4>Loading...</h4>
+  </div>
+  <div v-else-if="error">
+    <h4>{{ error.message }}</h4>
+  </div>
+  <ListItems v-if="!pending && materials && materials.folderStructure.length !== 0"
+    :fileStructure="materials.folderStructure" />
+
   <div v-show="modal.open"
     class="bg-black bg-opacity-30 absolute w-full h-full top-0 left-0 flex items-center justify-center"
     @click.self="modal.open = false">
