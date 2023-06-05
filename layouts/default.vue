@@ -4,6 +4,7 @@
   <NuxtLoadingIndicator :height="5" :color="'hsl(190, 100%, 50%)'" />
   <Navbar />
   <slot></slot>
+  <ToastContainer />
 </template>
 
 <style></style>
