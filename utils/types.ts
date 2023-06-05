@@ -92,3 +92,9 @@ export type Forum = {
 export type Page = {
   text: string;
 } & CourseMaterial;
+
+export type ToastData = {
+  success: boolean;
+  type: "success" | "error";
+  message: string;
+};
