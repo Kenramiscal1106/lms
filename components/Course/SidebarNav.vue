@@ -1,14 +1,17 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 const route = useRoute();
 const { to } = defineProps<{
-  to: "materials" | "members" | "updates"
+  to: "materials" | "members" | "updates";
 }>();
-
 </script>
 <template>
-  <NuxtLink :to="`/course/${route.params.courseid}${to === 'materials' ? '' : '/' + to}`"
-    :class="[`px-3 py-2 no-underline text-black border-l-4`, route.path.endsWith(to === 'materials' ? route.params.courseid as string : to) ? '' : 'hover:bg-neutral-200 border-l-transparent']"
-    :exact-active-class="'font-bold bg-neutral-300 hover:bg-neutral-300 border-blue-500'">
+  <NuxtLink
+    :to="`/course/${route.params.courseid}${
+      to === 'materials' ? '' : '/' + to
+    }`"
+    :class="[`border-l-4 px-3 py-2 text-black no-underline`, route.path.endsWith(to === 'materials' ? route.params.courseid as string : to) ? '' : 'border-l-transparent hover:bg-neutral-200']"
+    :exact-active-class="'font-bold bg-neutral-300 hover:bg-neutral-300 border-blue-500'"
+  >
     <slot></slot>
   </NuxtLink>
 </template>

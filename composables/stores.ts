@@ -41,12 +41,12 @@ export const useToastStore = defineStore<
         {
           success: true,
           message: "You successfadfuasdg;asdlg asd",
-          type: "error",
+          type: "success",
         },
         {
           success: true,
           message: "You successfadfuasdg;asdlg asd",
-          type: "error",
+          type: "success",
         },
         {
           success: true,

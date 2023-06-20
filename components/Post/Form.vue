@@ -3,7 +3,7 @@ const route = useRoute();
 const formAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
   const formData = Object.fromEntries(new FormData(formTarget).entries())
-  await $fetch(`/api/course/${route.params.courseid}/add-post`, {
+  const result = await $fetch(`/api/course/${route.params.courseid}/add-post`, {
     method: 'POST',
     body: JSON.stringify(formData),
     async onResponse({ response }) {

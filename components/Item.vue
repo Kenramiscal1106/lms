@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { FsItem } from '~~/utils/types';
-const route = useRoute()
+import { FsItem } from "~~/utils/types";
+const route = useRoute();
 const { item } = defineProps<{
-  item: FsItem
-}>()
+  item: FsItem;
+}>();
 </script>
 
 <template>
@@ -12,18 +12,18 @@ const { item } = defineProps<{
       <div>{{ item.name }}</div>
 
       <div class="flex space-x-3">
-        <button>
-          📁
-        </button>
-        <button>
-          🗄
-        </button>
+        <button>📁</button>
+        <button>🗄</button>
       </div>
     </summary>
     <div class="ml-6">
       <ListItems :file-structure="item.children" />
     </div>
   </details>
-  <NuxtLink :to="`${route.params.courseid}/${item.type}/${item.to}`" v-else class="block px-4 py-2 my-1">{{ item.name }}
+  <NuxtLink
+    :to="`${route.params.courseid}/${item.type}/${item.to}`"
+    v-else
+    class="my-1 block px-4 py-2"
+    >{{ item.name }}
   </NuxtLink>
 </template>

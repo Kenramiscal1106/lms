@@ -1,18 +1,26 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: "auth"
-})
+  middleware: "auth",
+});
 useHead({
-  title: "Home | LMS"
-})
+  title: "Home | LMS",
+});
 const { data, pending, error } = useLazyFetch("/api/home", {
   key: "home-posts",
-  server: false
-})
+  server: false,
+});
+const store = useToastStore();
+const action = () => {
+  store.addToast({
+    message: " Joined another course",
+    type: "success",
+    success: true,
+  });
+};
 </script>
 
 <template>
-  <div class="max-w-4xl m-auto">
+  <div class="m-auto max-w-4xl">
     <h1>Home</h1>
     <div v-if="pending">
       <h4>Loading...</h4>
@@ -29,6 +37,7 @@ const { data, pending, error } = useLazyFetch("/api/home", {
       </div>
     </div>
   </div>
+  <button @click="action">Add Toast</button>
 </template>
 
 <style></style>

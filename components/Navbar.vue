@@ -1,27 +1,28 @@
-<script setup lang='ts'>
-import { useCurrentUser } from '~~/composables/authUser';
+<script setup lang="ts">
+import { useCurrentUser } from "~~/composables/authUser";
 
 const route = useRoute();
 const coursesOpen = ref(false);
-const user = await useUserSession()
-const userStore = useCurrentUser()
-userStore.value = user
+const user = await useUserSession();
+const userStore = useCurrentUser();
+userStore.value = user;
 
 const logOut = async () => {
-  await fetch('/api/logout');
-  window.location.replace('/login')
-}
+  await fetch("/api/logout");
+  window.location.replace("/login");
+};
 
 watch(route, () => {
   if (!coursesOpen.value) {
-    return
+    return;
   }
-  coursesOpen.value = false
-})
+  coursesOpen.value = false;
+});
 </script>
 <template>
-  <nav class="flex items-center px-8 py-3 bg-neutral-900 fixed w-full top-0 left-0">
-
+  <nav
+    class="fixed left-0 top-0 flex w-full items-center bg-neutral-900 px-8 py-3"
+  >
     <div>
       <h2>
         <NuxtLink to="/">LCCT</NuxtLink>
@@ -30,7 +31,7 @@ watch(route, () => {
     <div v-show="user.isLoggedIn">
       <ul class="mr-2">
         <li>
-          <NavbarItem @click="coursesOpen = true">Courses</Navbaritem>
+          <NavbarItem @click="coursesOpen = true">Courses</NavbarItem>
         </li>
       </ul>
     </div>
@@ -38,8 +39,11 @@ watch(route, () => {
       <NavbarItem @click="logOut">Log out</NavbarItem>
     </div>
   </nav>
-  <div class="absolute w-full h-full top-0 left-0 bg-black bg-opacity-30" v-if="coursesOpen"
-    @click.self="coursesOpen = !coursesOpen">
+  <div
+    class="absolute left-0 top-0 h-full w-full bg-black bg-opacity-30"
+    v-if="coursesOpen"
+    @click.self="coursesOpen = !coursesOpen"
+  >
     <CourseModal />
   </div>
 </template>
@@ -60,7 +64,7 @@ nav h2 {
   margin: 0;
 }
 
-nav>* {
+nav > * {
   margin-right: 1.25rem;
 }
 </style>
