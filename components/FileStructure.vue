@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { modalStore } from "~/composables/stores";
+
 const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>();
 const {
   data: materials,
@@ -7,13 +9,7 @@ const {
 } = await useLazyFetch(`/api/course/${route.params.courseid}/materials`, {
   key: "materials",
 });
-const modal = reactive<{
-  type: "material" | "folder";
-  open: boolean;
-}>({
-  open: false,
-  type: "material",
-});
+const modal = modalStore();
 </script>
 
 <template>
@@ -21,21 +17,21 @@ const modal = reactive<{
     <Button
       variant="outline"
       @click="
-        modal.open = true;
-        modal.type = 'material';
+        modal.open();
+        modal.setType('material');
       "
       >Add materials</Button
     >
     <Button
       variant="outline"
       @click="
-        modal.open = true;
-        modal.type = 'folder';
+        modal.open();
+        modal.setType('folder');
       "
       >Add folder</Button
     >
   </div>
-
+  <hr />
   <div v-if="pending">
     <h4>Loading...</h4>
   </div>
@@ -48,14 +44,11 @@ const modal = reactive<{
   />
 
   <div
-    v-show="modal.open"
+    v-show="modal.opened"
     class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-30"
-    @click.self="modal.open = false"
+    @click.self="modal.close()"
   >
     <div class="h-max max-w-md bg-white px-4 py-1">
-      <div>
-        <button @click="modal.open = false">Close modal</button>
-      </div>
       <CreateMaterial v-if="modal.type === 'material'" :route="route" />
       <CreateFolder v-if="modal.type === 'folder'" :route="route" />
     </div>
