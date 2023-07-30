@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { modalStore } from "~/composables/stores";
+
+const modal = modalStore();
 const { route } = defineProps<{ route: ReturnType<typeof useRoute> }>();
 const formAction = (async (e) => {
   const formTarget = e.currentTarget as HTMLFormElement;
@@ -10,6 +13,7 @@ const formAction = (async (e) => {
       if (response.ok) {
         console.log("updated successfully");
         await refreshNuxtData("materials");
+        modal.close();
       }
     },
   });
@@ -25,15 +29,16 @@ const formAction = (async (e) => {
         <option value="page">Page</option>
         <option value="forum">Forums</option>
       </select>
-      <br />
       <input
         type="text"
         name="name"
         id="material-name"
         placeholder="Material name"
       />
-      <br />
-      <button type="submit">Submit</button>
+      <div>
+        <Button @click="modal.close()" type="button">Cancel</Button>
+        <Button type="submit">Submit</Button>
+      </div>
     </form>
   </div>
 </template>
