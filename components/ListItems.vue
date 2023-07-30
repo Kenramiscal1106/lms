@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 // import { defineProps } from 'vue';
-import type { FsItem } from "~~/utils/types"
+import type { FsItem } from "~~/utils/types";
 const { fileStructure } = defineProps<{
-  fileStructure: FsItem[]
-}>()
-
+  fileStructure: FsItem[];
+}>();
 </script>
 
-<template >
-  <div v-for="file in fileStructure">
-    <Item :item="file" />
+<template>
+  <div class="space-y-3">
+    <Item v-for="file in fileStructure" :item="file" />
   </div>
 </template>
