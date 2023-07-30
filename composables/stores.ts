@@ -1,5 +1,5 @@
 // import { QuizItemSchema } from "~~/utils/types";
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 import { Quiz, QuizItem, ToastData } from "~~/utils/types";
 
 export const useQuizStore = defineStore<string, Quiz>("quizItems", {
@@ -26,7 +26,6 @@ export const useQuizStore = defineStore<string, Quiz>("quizItems", {
     },
   },
 });
-
 export const useToastStore = defineStore<
   string,
   { toasts: ToastData[] },
@@ -37,30 +36,7 @@ export const useToastStore = defineStore<
 >("toasts", {
   state() {
     return {
-      toasts: [
-        {
-          success: true,
-          message: "You successfadfuasdg;asdlg asd",
-          type: "success",
-        },
-        {
-          success: true,
-          message: "You successfadfuasdg;asdlg asd",
-          type: "success",
-        },
-        {
-          success: true,
-          message: "You successfadfuasdg;asdlg asd",
-          type: "error",
-        },
-
-        {
-          success: true,
-          message:
-            "You successfadfuasdg;asdlg asdfasdfasdg asga sdg asdg asdg asd gasd g asdg asdg asdg asd gasd g asd gasd gasd g asdg asd gs dg asdg a sdg asd ga sd",
-          type: "error",
-        },
-      ],
+      toasts: [],
     };
   },
   actions: {
@@ -69,3 +45,33 @@ export const useToastStore = defineStore<
     },
   },
 });
+
+export const modalStore = defineStore<
+  string,
+  {
+    opened: boolean;
+    type: "folder" | "material";
+  }
+>("modal", {
+  state: () => ({
+    opened: false,
+    type: "folder",
+  }),
+  actions: {
+    close() {
+      this.opened = false;
+    },
+    open() {
+      this.opened = true;
+    },
+    setType(type: typeof this.type) {
+      this.type = type;
+    },
+  },
+});
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(modalStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useQuizStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useToastStore, import.meta.hot))
+}
