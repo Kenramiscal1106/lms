@@ -15,11 +15,11 @@ export function format(ISOString: string): string {
       timeStyle: "medium",
     }).format(new Date(ISOString));
   } else if (Math.abs(difference) >= dayToMS) {
-    return rtf.format(Math.floor(difference / dayToMS), "days");
+    return rtf.format(Math.round(difference / dayToMS), "days");
   } else if (Math.abs(difference) >= hrToMS) {
-    return rtf.format(Math.floor(difference / hrToMS), "hours");
+    return rtf.format(Math.round(difference / hrToMS), "hours");
   } else if (Math.abs(difference) >= minToMS) {
-    return rtf.format(Math.floor(difference / minToMS), "minutes");
+    return rtf.format(Math.round(difference / minToMS), "minutes");
   }
-  return rtf.format(Math.floor(difference / 1000), "seconds");
+  return rtf.format(Math.round(difference / 1000), "seconds");
 }
