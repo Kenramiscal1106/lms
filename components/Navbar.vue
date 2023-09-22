@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCurrentUser } from "~~/composables/authUser";
 
-const route = useRoute();
+const router = useRouter();
 const coursesOpen = ref(false);
 const user = await useUserSession();
 const userStore = useCurrentUser();
@@ -12,7 +12,7 @@ const logOut = async () => {
   window.location.replace("/login");
 };
 
-watch(route, () => {
+watch(router.currentRoute, () => {
   if (!coursesOpen.value) {
     return;
   }
