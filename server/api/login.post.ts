@@ -2,21 +2,19 @@ import bcrypt from "bcrypt";
 import { Users } from "@/utils/models";
 import { v4 as uuidv4 } from "uuid";
 
-const WEEK = 60 * 60 * 24;
+const WEEK = 60 * 60 * 24 * 7;
 
 export default defineEventHandler(async (event) => {
-  const { username, password } = await readBody(event);
-
+  const { username, password } = JSON.parse(await readBody(event));
   const user = await Users.findOne({
     username,
   });
-
   if (!user) {
     throw createError({
       statusCode: 400,
       data: {
         success: false,
-        message: "incorrect username or password",
+        message: "user not found",
       },
     });
   }
