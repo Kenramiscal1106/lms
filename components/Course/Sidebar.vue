@@ -4,7 +4,7 @@ const { courseName } = defineProps<{
 }>();
 </script>
 <template>
-  <aside class="shrink-0 basis-48 py-2">
+  <aside class="shrink-0 basis-52 py-2">
     <h1>{{ courseName }}</h1>
     <div class="flex flex-col">
       <CourseSidebarNav to="materials">Materials </CourseSidebarNav>
