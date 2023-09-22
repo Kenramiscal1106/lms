@@ -23,7 +23,7 @@ useHead({
 });
 </script>
 <template>
-  <div class="m-auto flex max-w-4xl gap-1">
+  <div class="m-auto flex max-w-5xl gap-1 px-2">
     <CourseSidebar :courseName="data ? data.name : ''" />
     <main class="flex-1 bg-white px-4 py-2">
       <NuxtPage />
