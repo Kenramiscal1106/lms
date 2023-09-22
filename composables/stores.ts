@@ -50,7 +50,7 @@ export const modalStore = defineStore<
   string,
   {
     opened: boolean;
-    type: "folder" | "material";
+    type: "folder" | "material" | "courses";
   }
 >("modal", {
   state: () => ({
@@ -71,7 +71,7 @@ export const modalStore = defineStore<
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(modalStore, import.meta.hot))
-  import.meta.hot.accept(acceptHMRUpdate(useQuizStore, import.meta.hot))
-  import.meta.hot.accept(acceptHMRUpdate(useToastStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(modalStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useQuizStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useToastStore, import.meta.hot));
 }
