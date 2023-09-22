@@ -9,14 +9,6 @@ const { data, pending, error } = useLazyFetch("/api/home", {
   key: "home-posts",
   server: false,
 });
-const store = useToastStore();
-const action = () => {
-  store.addToast({
-    message: " Joined another course",
-    type: "success",
-    success: true,
-  });
-};
 </script>
 
 <template>
@@ -37,7 +29,6 @@ const action = () => {
       </div>
     </div>
   </div>
-  <button @click="action">Add Toast</button>
 </template>
 
 <style></style>
