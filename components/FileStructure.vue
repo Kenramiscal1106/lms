@@ -16,6 +16,7 @@ const modal = modalStore();
   <div class="flex gap-3">
     <Button
       variant="outline"
+      type="submit"
       @click="
         modal.open();
         modal.setType('material');
@@ -24,6 +25,7 @@ const modal = modalStore();
     >
     <Button
       variant="outline"
+      type="submit"
       @click="
         modal.open();
         modal.setType('folder');
