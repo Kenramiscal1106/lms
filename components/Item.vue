@@ -26,7 +26,7 @@ const { item } = defineProps<{
   <NuxtLink
     :to="`${route.params.courseid}/${item.type}/${item.to}`"
     v-else
-    class="block rounded-md border-2 border-neutral-100 px-4 py-3 no-underline hover:bg-neutral-100 active:bg-neutral-200"
+    class="block rounded-md border-2 border-neutral-100 px-4 py-3 text-black no-underline hover:bg-neutral-100 active:bg-neutral-200"
     >{{ item.name }}
   </NuxtLink>
 </template>
