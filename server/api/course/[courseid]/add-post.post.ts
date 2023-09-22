@@ -1,4 +1,3 @@
-// import type { QueryOptions } from "mongoose";
 import mongoose from "mongoose";
 import { Courses, Posts } from "~/utils/models";
 
@@ -11,13 +10,15 @@ export default defineEventHandler(
     type: string;
   }> => {
     const body = await readBody(event);
-
+    const currentDate = new Date().toISOString();
     const post = new Posts({
       author: event.context.userId,
       content: body.content,
       comments: [],
       course: new mongoose.Types.ObjectId(event.context.params?.courseid),
       isComment: false,
+      createdAt: currentDate,
+      updatedAt: currentDate,
     });
     try {
       Promise.allSettled([
