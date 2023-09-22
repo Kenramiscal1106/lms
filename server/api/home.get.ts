@@ -49,11 +49,15 @@ export default defineEventHandler(async (event) => {
         },
       ],
     });
-
+  if (courses.length === 0) {
+    return {
+      posts: [],
+    };
+  }
   const posts = courses
     .map((course) => course.posts)
     .reduce((prevPosts, nextPosts) => [...prevPosts, ...nextPosts])
-    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+    .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
   return {
     posts,
   };
